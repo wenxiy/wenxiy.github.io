@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="温鑫"><meta name="copyright" content="温鑫"><meta name="generator" content="Hexo 6.1.0"><meta name="theme" content="hexo-theme-yun"><title>Kotlin协程 | wenxiy</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;family=Source+Code+Pro&amp;display=swap" media="none" onload="this.media='all'"><script src="//at.alicdn.com/t/font_1140697_pem9yni52s.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"root":"/","title":"温鑫的博客","version":"0.8.1","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><meta name="description" content="Kotlin协程什么是协程由Kotlin官方对多线程操作提供的一系列API 类似于Java的Thread Android AsyncTask 借助Kotlin语言看起来写同步的代码写异步处理操作。也就是非阻塞式挂起 协程的功能 协程最基本的功能是并发操作，多线程。可以切换任务到后台和前台。  launch(Dispatchers.IO)&amp;#123;     saveToDatabase(data)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin协程">
+<meta property="og:url" content="http://wenxiy.site/2021/04/07/Kotlin%E5%8D%8F%E7%A8%8B/index.html">
+<meta property="og:site_name" content="wenxiy">
+<meta property="og:description" content="Kotlin协程什么是协程由Kotlin官方对多线程操作提供的一系列API 类似于Java的Thread Android AsyncTask 借助Kotlin语言看起来写同步的代码写异步处理操作。也就是非阻塞式挂起 协程的功能 协程最基本的功能是并发操作，多线程。可以切换任务到后台和前台。  launch(Dispatchers.IO)&amp;#123;     saveToDatabase(data)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-07T06:08:54.000Z">
+<meta property="article:modified_time" content="2022-04-13T04:15:32.948Z">
+<meta property="article:author" content="温鑫">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle sidebar-toggle-fixed hty-icon-button"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><aside class="sidebar"><script defer src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="温鑫"><img width="96" loading="lazy" src="/Corleone.jpg" alt="温鑫"></a><div class="site-author-name"><a href="/about/">温鑫</a></div><a class="site-name" href="/about/site.html">wenxiy</a><sub class="site-subtitle"></sub><div class="site-desciption">一个努力中的Android Developer</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item site-state-posts"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">20</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">4</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/wenxiy" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Kotlin%E5%8D%8F%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">Kotlin协程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">什么是协程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-number">1.2.</span> <span class="toc-text">协程的功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B%E6%80%8E%E4%B9%88%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">协程怎么用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%82%E8%B5%B7%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">什么是挂起？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFsuspend%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">什么是suspend函数？</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://wenxiy.site/2021/04/07/Kotlin%E5%8D%8F%E7%A8%8B/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="温鑫"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="wenxiy"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Kotlin协程</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2021-04-07 14:08:54" itemprop="dateCreated datePublished" datetime="2021-04-07T14:08:54+08:00">2021-04-07</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2022-04-13 12:15:32" itemprop="dateModified" datetime="2022-04-13T12:15:32+08:00">2022-04-13</time></div><div class="post-classify"><span class="post-tag"><a class="tag" href="/tags/Android/" style="--text-color:#4fc08d"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Android</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content post-markdown"><h3 id="Kotlin协程"><a href="#Kotlin协程" class="headerlink" title="Kotlin协程"></a>Kotlin协程</h3><h4 id="什么是协程"><a href="#什么是协程" class="headerlink" title="什么是协程"></a>什么是协程</h4><p>由Kotlin官方对多线程操作提供的一系列API</p>
+<p>类似于Java的Thread Android AsyncTask</p>
+<p>借助Kotlin语言看起来写同步的代码写异步处理操作。也就是非阻塞式挂起</p>
+<h4 id="协程的功能"><a href="#协程的功能" class="headerlink" title="协程的功能"></a>协程的功能</h4><ol>
+<li>协程最基本的功能是并发操作，多线程。可以切换任务到后台和前台。</li>
+</ol>
+<pre><code>launch(Dispatchers.IO)&#123;
+    saveToDatabase(data)
+&#125;
+launch(Dispatchers.Main)&#123;
+    updateViews(data)
+&#125;
+</code></pre>
+<ol>
+<li>可以把不同线程的代码写在同一个代码块</li>
+</ol>
+<pre><code>launch(Dispatchers.Main)&#123;//开始：主线程
+    val user = api.getUser()//网络请求：后台程序
+    nameTv.text = user.name//更新UI：主线程
+&#125;
+</code></pre>
+<p>如果对于Java来说：想要这样做，是不可能的，那么你只能不停地回调，才能完成这样的操作。</p>
+<ol>
+<li>开发难度降低(合并协程)</li>
+</ol>
+<p>对于一个需求来说，如果需要并行执行两个请求，但是由于自己不会处理数据合并，请求的合并，把这两个请求变成了串行，那么网络请求时间就多了一倍</p>
+<p>如果用协程</p>
+<pre><code>launch(Dispatchers.Main)&#123;
+    val avatear = async&#123;api.getAvater(user)&#125;//获取用户头像
+    val logo = async&#123;api.getCompanyLogo(user)&#125;//获取公司logo
+    val merged = suspendingMerge(avatear,logo)//合并数据请求
+    show(merged)
+&#125;
+</code></pre>
+<h4 id="协程怎么用"><a href="#协程怎么用" class="headerlink" title="协程怎么用"></a>协程怎么用</h4><p>当你拥有一个生成协程函数launch()，通过指定线程来完成请求操作。</p>
+<pre><code>launch(Dispatchers.Io)&#123;
+    val image = getImage(imageId)
+&#125;
+</code></pre>
+<p>如果你要切回主线程更新UI怎么做？</p>
+<pre><code>avatarImageView.setImageBitmap(image)
+</code></pre>
+<p>当然不能像前面一样做，因为只是一个伪代码</p>
+<p>所以对于其想要切换回来来说</p>
+<pre><code>launch(Dispatchers.Main)&#123;
+    val image = withContext(Dispatchers.Io)&#123;
+    getImage(imageId)//语法糖得到IO线程数据
+    &#125;
+    avatarIv.setImageBitmap(image)//在主线程中进行展示UI
+&#125;
+</code></pre>
+<p>对于上面的withContext来说：这是一个函数，我们借助这个函数就可以去切换到Io线程得到数据。</p>
+<p>那么总结一下：协程的定义：协作式的例程</p>
+<p>如何写</p>
+<pre><code>launch(Dipatchers.Main)&#123;
+    withContext(Dispatchers.IO)&#123;
+        ···
+    &#125;
+    withContext(Dispatchers.IO)&#123;
+        ···
+    &#125;
+    ···
+&#125;
+</code></pre>
+<p>这就是协程。</p>
+<p>可是我想写的更加优美一下，如何美化这个代码呢？</p>
+<p>这里先介绍一个函数：suspend函数</p>
+<p>当代码执行到suspend函数的时候，代码会挂起，而且这个挂起是非阻塞式的，不会阻挡线程</p>
+<h4 id="什么是挂起？"><a href="#什么是挂起？" class="headerlink" title="什么是挂起？"></a>什么是挂起？</h4><p>用一个词来解释挂起：脱离 这个词是十分的恰当。</p>
+<p>也就是说，当一个Launch函数执行到了suspend函数的时候，这个协程从正在执行的线程脱离了，也就是线程在这个代码开始不执行协程了，注意不是停止。</p>
+<p>那么对于这个线程有可能是IO线程也有可能是主线程，那么对于其来说，自己做自己的事情去了</p>
+<p>那剩下的挂起的代码怎么办？</p>
+<pre><code>launch(Dispatchers.Main)&#123;
+    val image = suspendingGetImage(imageId) //剩下两行代码转到IO线程执行。挂起以后去了IO线程执行。结束了就把线程切回来。完成了一次封装执行
+    avatarIv.setImageBitmap(image)
+&#125;
+suspend fun suspendingGetImage(imageId:String)&#123;
+    withContext(Dispatchers.IO)&#123;
+        getImage(imageID)
+    &#125;
+&#125;
+</code></pre>
+<p>所以为什么用Dispatcher关键字：调度器，而不是Thread线程这个关键字的原因所在。</p>
+<p>因为他需要去调度线程。切换回来线程</p>
+<p>所以什么是挂起：暂时离开，执行结束后切回来。也就是切线程 这个行为就叫resume恢复</p>
+<h4 id="什么是suspend函数？"><a href="#什么是suspend函数？" class="headerlink" title="什么是suspend函数？"></a>什么是suspend函数？</h4><p>所以这个函数就是挂起函数，而且这就是为什么不阻塞的原因。</p>
+<p>但是还有个问题，我们在suspend函数里面其实是withContext函数来实现的切换，而且我们也可以自定义来进行线程的切换</p>
+<p>但是suspend关键字到底起什么作用？</p>
+<p><strong>suspend的作用</strong>：提醒</p>
+<p>也就是函数创建者对函数调用者的提醒，就是简单的一个标记罢了。它和withContext函数一起实现了标志同步!!!!</p>
+<p>提醒调用者：这是一个耗时函数，所以你用的时候要小心。仅此而已罢了。</p>
+<p>可是又有人说：我不想告诉调用者这是个耗时操作为什么会报错？</p>
+<p>因为标记同步机制，你withContext函数返回值是suspend，所以就要申明这个suspend</p>
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://s1.ax1x.com/2020/06/08/tWNMvj.jpg"><img loading="lazy" src="https://s1.ax1x.com/2020/06/08/tWNMvj.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://s1.ax1x.com/2020/06/08/tWNlKs.jpg"><img loading="lazy" src="https://s1.ax1x.com/2020/06/08/tWNlKs.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>温鑫</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://wenxiy.site/2021/04/07/Kotlin%E5%8D%8F%E7%A8%8B/" title="Kotlin协程">http://wenxiy.site/2021/04/07/Kotlin%E5%8D%8F%E7%A8%8B/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2021/06/07/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/" rel="prev" title="Activity Intent"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">Activity Intent</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/03/07/%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%E6%9C%80%E5%A5%BD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%EF%BC%9F/" rel="next" title="什么是Retrofit？最好的网络框架？"><span class="post-nav-text">什么是Retrofit？最好的网络框架？</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>点击按钮跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" target="_blank" rel="noopener" href="https://github.com/YunYouJun/yunyoujun.github.io/issues?q=is:issue+Kotlin协程">GitHub Issues</a></div><div id="valine-container"></div><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function initValine() {
+  const valineConfig = {"enable":true,"appId":"6VyDtqsM17IgTGtfEuqRtKGU-gzGzoHsz","appKey":"7nQJo7oNdyqJ0dvga6sYsS8f","placeholder":"Just go go","avatar":null,"pageSize":10,"visitor":false,"highlight":true,"recordIP":false,"enableQQ":true,"el":"#valine-container","lang":"zh-cn"}
+  valineConfig.path = window.location.pathname
+  new Valine(valineConfig)
+}
+setTimeout(initValine, 1000)</script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2020 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 温鑫</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.1.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v0.8.1</span></div><div class="live_time"><span>本博客已苟延残喘地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  window.setTimeout(blog_live_time, 1000);
+  const start = new Date('2020-06-06T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>let date = new Date();
+let today = (date.getMonth() + 1) + "-" + date.getDate()
+if ("4-4,9-18,3-30".indexOf(today) !== -1) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div><script defer src="/js/utils.js"></script><script defer src="/js/hexo-theme-yun.js"></script></body></html>

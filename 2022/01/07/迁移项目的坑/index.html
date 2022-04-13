@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="温鑫"><meta name="copyright" content="温鑫"><meta name="generator" content="Hexo 6.1.0"><meta name="theme" content="hexo-theme-yun"><title>迁移项目的坑 | wenxiy</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;family=Source+Code+Pro&amp;display=swap" media="none" onload="this.media='all'"><script src="//at.alicdn.com/t/font_1140697_pem9yni52s.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"root":"/","title":"温鑫的博客","version":"0.8.1","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><meta name="description" content="迁移项目的坑引言好像从换系统、升级Android studio以后，就发现了很多莫名其妙的错误，其实也不算莫名其妙的错误，就是迁移项目的时候出现的一些常见错误。在这里写一个自己解决的办法，如果以后再次遇到这种情况就先试试这些方法，如果不行再继续寻找解决方案。 关于代理的问题因为有的区域的局限性，导致一些不可名状的错误。在这里我们需要设置一下代理，并有相关的VPN来解决。 如果遇到下载对应的grad">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迁移项目的坑">
+<meta property="og:url" content="http://wenxiy.site/2022/01/07/%E8%BF%81%E7%A7%BB%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:site_name" content="wenxiy">
+<meta property="og:description" content="迁移项目的坑引言好像从换系统、升级Android studio以后，就发现了很多莫名其妙的错误，其实也不算莫名其妙的错误，就是迁移项目的时候出现的一些常见错误。在这里写一个自己解决的办法，如果以后再次遇到这种情况就先试试这些方法，如果不行再继续寻找解决方案。 关于代理的问题因为有的区域的局限性，导致一些不可名状的错误。在这里我们需要设置一下代理，并有相关的VPN来解决。 如果遇到下载对应的grad">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUCxWF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUVSSK.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUVaXF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUmH91.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUnM3q.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/14/UUnIr8.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/18/U2emKU.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/18/U2mkee.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/25/aSxeBQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/07/26/a9A0EV.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/04/adHQAI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/08/04/adHB40.png">
+<meta property="article:published_time" content="2022-01-07T06:08:54.000Z">
+<meta property="article:modified_time" content="2022-04-13T04:17:53.366Z">
+<meta property="article:author" content="温鑫">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/07/14/UUCxWF.png"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle sidebar-toggle-fixed hty-icon-button"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><aside class="sidebar"><script defer src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="温鑫"><img width="96" loading="lazy" src="/Corleone.jpg" alt="温鑫"></a><div class="site-author-name"><a href="/about/">温鑫</a></div><a class="site-name" href="/about/site.html">wenxiy</a><sub class="site-subtitle"></sub><div class="site-desciption">一个努力中的Android Developer</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item site-state-posts"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">20</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">4</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/wenxiy" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9D%91"><span class="toc-number">1.</span> <span class="toc-text">迁移项目的坑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.0.1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BB%A3%E7%90%86%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.0.2.</span> <span class="toc-text">关于代理的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%9C%A8Windows%E7%B3%BB%E7%BB%9F%E4%B8%8B%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.0.3.</span> <span class="toc-text">关于在Windows系统下项目调试的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9F%90%E4%BA%9B%E7%89%B9%E6%AE%8A%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.0.4.</span> <span class="toc-text">关于某些特殊的原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9F%A5%E7%9C%8B%E6%BA%90%E4%BB%A3%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.0.5.</span> <span class="toc-text">关于查看源代码的问题</span></a></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://wenxiy.site/2022/01/07/%E8%BF%81%E7%A7%BB%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9D%91/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="温鑫"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="wenxiy"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">迁移项目的坑</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-01-07 14:08:54" itemprop="dateCreated datePublished" datetime="2022-01-07T14:08:54+08:00">2022-01-07</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2022-04-13 12:17:53" itemprop="dateModified" datetime="2022-04-13T12:17:53+08:00">2022-04-13</time></div><div class="post-classify"><span class="post-tag"><a class="tag" href="/tags/Android/" style="--text-color:#4fc08d"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Android</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content post-markdown"><h2 id="迁移项目的坑"><a href="#迁移项目的坑" class="headerlink" title="迁移项目的坑"></a>迁移项目的坑</h2><h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>好像从换系统、升级Android studio以后，就发现了很多莫名其妙的错误，其实也不算莫名其妙的错误，就是迁移项目的时候出现的一些常见错误。在这里写一个自己解决的办法，如果以后再次遇到这种情况就先试试这些方法，如果不行再继续寻找解决方案。</p>
+<h4 id="关于代理的问题"><a href="#关于代理的问题" class="headerlink" title="关于代理的问题"></a>关于代理的问题</h4><p>因为有的区域的局限性，导致一些不可名状的错误。在这里我们需要设置一下代理，并有相关的VPN来解决。</p>
+<p>如果遇到下载对应的gradle包（这里指的是在线编译，而不是利用离线包）</p>
+<p>类似于这种情况：</p>
+<pre><code>Caused by: org.gradle.api.internal.artifacts.ivyservice.DefaultLenientConfiguration$ArtifactResolveException: Could not resolve all artifacts for configuration &#39;:classpath&#39;.
+</code></pre>
+<p>如果是这样的情况，我们的解决办法一般有几步：</p>
+<ol>
+<li>找到我们的代理的地方</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/07/14/UUCxWF.png" alt="img" loading="lazy"></p>
+<ol>
+<li>查看代理</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/07/14/UUVSSK.png" alt="img" loading="lazy"></p>
+<ol>
+<li>注释或者删除注解</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/07/14/UUVaXF.png" alt="img" loading="lazy"></p>
+<p>给予以上三步，按理说应该是解决了这个问题，如果由于升级AS所导致的一些问题，不如连同下面的步骤一起进行一个操作</p>
+<p>如果这样的错误</p>
+<pre><code>Could not get &#39;https://dl.google.com···········.pom&#39;
+</code></pre>
+<p>这里得不到资源文件pom多数可能也是代理的问题</p>
+<ol>
+<li>打开seeting</li>
+</ol>
+<p>对于macOS系统</p>
+<pre><code>cmd + ;
+</code></pre>
+<p>调出setting</p>
+<p>对于Windows系统来说</p>
+<pre><code>Ctrl + Alt + s
+</code></pre>
+<p>(如果QQ在线可能导致按键冲突，退出QQ即可)</p>
+<p>或者在file-&gt;setting</p>
+<ol>
+<li>设置代理</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/07/14/UUmH91.png" alt="img" loading="lazy"></p>
+<p>这里的Http代理还是Socks代理必须要取决你的VPN的设置</p>
+<p>端口号也是一样</p>
+<p>一般是HTTP的1081端口（注意！是一般，像我的特殊情况就是不行，我的VPN设置是Socks代理的1081端口，如果是Http代理是8001端口）</p>
+<ol>
+<li>检查代理是否成功</li>
+</ol>
+<p>点击Check connection 输入URL:<a target="_blank" rel="noopener" href="http://www.android.com/">http://www.android.com</a></p>
+<p><img src="https://s1.ax1x.com/2020/07/14/UUnM3q.png" alt="img" loading="lazy"></p>
+<p>或<a target="_blank" rel="noopener" href="http://www.google.com/">http://www.google.com</a></p>
+<ol>
+<li>确认后</li>
+</ol>
+<p>若出现：</p>
+<p><img src="https://s1.ax1x.com/2020/07/14/UUnIr8.png" alt="img" loading="lazy"></p>
+<p>则表示代理成功。</p>
+<p>最后进行sync project（在右上角的AVD Manger旁边）</p>
+<h4 id="关于在Windows系统下项目调试的问题"><a href="#关于在Windows系统下项目调试的问题" class="headerlink" title="关于在Windows系统下项目调试的问题"></a>关于在Windows系统下项目调试的问题</h4><p><img src="https://s1.ax1x.com/2020/07/18/U2emKU.png" alt="img" loading="lazy"></p>
+<p>我在Windows调试的时候，不管是利用真机调试还是模拟器调试都会出现这个问题。我在这里的问题一般有3种解决办法</p>
+<ul>
+<li>方法一：修改SDK版本号</li>
+</ul>
+<p>根据报错信息，我发现是我的SDK版本号兼容的问题</p>
+<p><img src="https://s1.ax1x.com/2020/07/18/U2mkee.png" alt="img" loading="lazy"></p>
+<p>修改SDK版本号即可</p>
+<p>在修改之前有必要解释一下<strong>compileSdkVersion, minSdkVersion 和 targetSdkVersion</strong></p>
+<ul>
+<li>compileSdkVersion 代表编译的时候使用的SDK，但这个SDK不会包含在运行的行为中，就是说不会出现在APK中。</li>
+<li>minSdkVersion代表应用运行的最低SDK标准，这个也是判断用户能否安装这个软件的依据，但这个设置必须要大于你所使用的库的最小SDK，这样你才能够使用他</li>
+<li>targetSdkVersion代表应用打包出来的版本，这个是代表Android向前兼容的依据，也就是说Android在targetSdkVersion没有改变的时候，应用的行为不会是去适应新的版本。当你设置了最高的SDKVersion的时候，应用就回去适应这个API</li>
+</ul>
+<p>所以在设置这个compileSdkVersion的时候，我们应该确保compileSdkVersion不得低于我们的targetSdkVersion。而且我们这个compileSdkVersion建议使用最新的SDK，这样的兼容性更好，在更换SDK的同时，不要忘记进行测试。</p>
+<p>所以我们设置compileSdkVersion为30，从而解决了这个Bug</p>
+<h4 id="关于某些特殊的原因"><a href="#关于某些特殊的原因" class="headerlink" title="关于某些特殊的原因"></a>关于某些特殊的原因</h4><pre><code>Caused by: org.gradle.internal.resolve.ModuleVersionResolveException: Could not resolve com.android.tools.build:gradle:3.5.2.
+</code></pre>
+<p>这是由于gradle造成的，我们有以下的问题：</p>
+<ol>
+<li>关于版本的问题</li>
+</ol>
+<p>如果是Android studio版本的问题，建议直接在AS中updates来</p>
+<p><img src="https://s1.ax1x.com/2020/07/25/aSxeBQ.png" alt="img" loading="lazy"></p>
+<ol>
+<li>还是关于代理的问题</li>
+</ol>
+<p>当我利用AS的Updates升级之后，发现出现了443</p>
+<pre><code>Cause: dl.google.com:443 failed to respond
+</code></pre>
+<p>所以我猜测还是代理的问题，上面以及有一种解决办法，但是对于这次来说不能解决这个问题。所以我认为可能是我的代理和gradle.properties文件中的没有吻合，导致AS认为我上不去网络（国内环境使然</p>
+<p>所以解决办法是只能利用HTTP代理（不是HTTPS！</p>
+<p>所以首先注解掉HTTPS的代理信息</p>
+<p><img src="https://s1.ax1x.com/2020/07/26/a9A0EV.png" alt="img" loading="lazy"></p>
+<p>并且添加Http的代理信息，这里的端口号根据代理的端口号所决定。</p>
+<p>最后成功解决了这个问题</p>
+<h4 id="关于查看源代码的问题"><a href="#关于查看源代码的问题" class="headerlink" title="关于查看源代码的问题"></a>关于查看源代码的问题</h4><p>在我想查看一些框架或者一些方法的源代码的时候，我碰到了这样的问题：</p>
+<p><img src="https://s1.ax1x.com/2020/08/04/adHQAI.png" alt="img" loading="lazy"></p>
+<p>根据提示，我发现我没有安装Android SDK Platform</p>
+<p>所以我在SDK manager中下载了</p>
+<p><img src="https://s1.ax1x.com/2020/08/04/adHB40.png" alt="img" loading="lazy"></p>
+<p>最后成功将.class文件转换为了.java文件查看</p>
+<p>如果这样没有解决的话：</p>
+<p>还可以降低targetSdk版本号，API为30的版本可能没有，降低为29</p>
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://s1.ax1x.com/2020/06/08/tWNMvj.jpg"><img loading="lazy" src="https://s1.ax1x.com/2020/06/08/tWNMvj.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://s1.ax1x.com/2020/06/08/tWNlKs.jpg"><img loading="lazy" src="https://s1.ax1x.com/2020/06/08/tWNlKs.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>温鑫</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://wenxiy.site/2022/01/07/%E8%BF%81%E7%A7%BB%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9D%91/" title="迁移项目的坑">http://wenxiy.site/2022/01/07/%E8%BF%81%E7%A7%BB%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9D%91/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/06/07/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/" rel="next" title="Activity Intent"><span class="post-nav-text">Activity Intent</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>点击按钮跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" target="_blank" rel="noopener" href="https://github.com/YunYouJun/yunyoujun.github.io/issues?q=is:issue+迁移项目的坑">GitHub Issues</a></div><div id="valine-container"></div><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function initValine() {
+  const valineConfig = {"enable":true,"appId":"6VyDtqsM17IgTGtfEuqRtKGU-gzGzoHsz","appKey":"7nQJo7oNdyqJ0dvga6sYsS8f","placeholder":"Just go go","avatar":null,"pageSize":10,"visitor":false,"highlight":true,"recordIP":false,"enableQQ":true,"el":"#valine-container","lang":"zh-cn"}
+  valineConfig.path = window.location.pathname
+  new Valine(valineConfig)
+}
+setTimeout(initValine, 1000)</script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2020 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 温鑫</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.1.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v0.8.1</span></div><div class="live_time"><span>本博客已苟延残喘地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  window.setTimeout(blog_live_time, 1000);
+  const start = new Date('2020-06-06T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>let date = new Date();
+let today = (date.getMonth() + 1) + "-" + date.getDate()
+if ("4-4,9-18,3-30".indexOf(today) !== -1) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div><script defer src="/js/utils.js"></script><script defer src="/js/hexo-theme-yun.js"></script></body></html>
