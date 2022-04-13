@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="温鑫"><meta name="copyright" content="温鑫"><meta name="generator" content="Hexo 6.1.0"><meta name="theme" content="hexo-theme-yun"><title>CSAPP个人笔记 | wenxiy</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;family=Source+Code+Pro&amp;display=swap" media="none" onload="this.media='all'"><script src="//at.alicdn.com/t/font_1140697_pem9yni52s.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"root":"/","title":"温鑫的博客","version":"0.8.1","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><meta name="description" content="Csapp读书笔记第二章 信息的表示和处理 信息存储 整数表示 整数运算 浮点 小结  信息存储第三章 程序的机械级表示 gcc编译器的使用 汇编语言 boom  gccgcc编译器是通过命令行来实现的，在mac下需要单独安装，在linux下是自带 在启动的时候会安排优化级别，二级优化是性能优化和使用方便的一种折中 在启动gcc编译器的时候会首先调用将插入所有用#include命令指定的文件，并且">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSAPP个人笔记">
+<meta property="og:url" content="http://wenxiy.site/2020/06/07/CSAPP%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="wenxiy">
+<meta property="og:description" content="Csapp读书笔记第二章 信息的表示和处理 信息存储 整数表示 整数运算 浮点 小结  信息存储第三章 程序的机械级表示 gcc编译器的使用 汇编语言 boom  gccgcc编译器是通过命令行来实现的，在mac下需要单独安装，在linux下是自带 在启动的时候会安排优化级别，二级优化是性能优化和使用方便的一种折中 在启动gcc编译器的时候会首先调用将插入所有用#include命令指定的文件，并且">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/07/t2vZ5R.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/07/t2vNGt.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/07/t2v8VH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/07/t2vlrD.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/07/t2v8VH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/07/t2vKxK.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/07/t2vZ5R.png">
+<meta property="article:published_time" content="2020-06-07T06:08:54.000Z">
+<meta property="article:modified_time" content="2020-06-07T16:29:20.000Z">
+<meta property="article:author" content="温鑫">
+<meta property="article:tag" content="计算机基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/06/07/t2vZ5R.png"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle sidebar-toggle-fixed hty-icon-button"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><aside class="sidebar"><script defer src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="温鑫"><img width="96" loading="lazy" src="/John.jpg" alt="温鑫"></a><div class="site-author-name"><a href="/about/">温鑫</a></div><a class="site-name" href="/about/site.html">wenxiy</a><sub class="site-subtitle"></sub><div class="site-desciption">一个努力中的Android Developer</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item site-state-posts"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">14</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">4</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/wenxiy" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Csapp%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">Csapp读书笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E4%BF%A1%E6%81%AF%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E5%A4%84%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">第二章 信息的表示和处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">信息存储</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E6%A2%B0%E7%BA%A7%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.2.</span> <span class="toc-text">第三章 程序的机械级表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gcc"><span class="toc-number">1.2.1.</span> <span class="toc-text">gcc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.2.</span> <span class="toc-text">逻辑操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.</span> <span class="toc-text">算数操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E5%92%8C%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.1.</span> <span class="toc-text">算数和逻辑操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C%E4%B8%AD%E6%8C%87%E9%92%88%E7%9A%84%E9%97%B4%E6%8E%A5%E5%BC%95%E7%94%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text">C中指针的间接引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A8%E5%85%A5%E5%92%8C%E6%8E%A8%E5%87%BA%E6%A0%88"><span class="toc-number">1.3.3.</span> <span class="toc-text">推入和推出栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="toc-number">1.3.4.</span> <span class="toc-text">数据传送指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.5.</span> <span class="toc-text">汇编命令总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8C%87%E4%BB%A4%E7%AC%A6"><span class="toc-number">1.3.6.</span> <span class="toc-text">操作数指令符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.7.</span> <span class="toc-text">数据格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80"><span class="toc-number">1.3.8.</span> <span class="toc-text">汇编语言</span></a></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://wenxiy.site/2020/06/07/CSAPP%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="温鑫"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="wenxiy"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">CSAPP个人笔记</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2020-06-07 14:08:54" itemprop="dateCreated datePublished" datetime="2020-06-07T14:08:54+08:00">2020-06-07</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2020-06-08 00:29:20" itemprop="dateModified" datetime="2020-06-08T00:29:20+08:00">2020-06-08</time></div><div class="post-classify"><span class="post-tag"><a class="tag" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" style="--text-color:#0E83CD"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">计算机基础</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content post-markdown"><h2 id="Csapp读书笔记"><a href="#Csapp读书笔记" class="headerlink" title="Csapp读书笔记"></a>Csapp读书笔记</h2><h3 id="第二章-信息的表示和处理"><a href="#第二章-信息的表示和处理" class="headerlink" title="第二章 信息的表示和处理"></a>第二章 信息的表示和处理</h3><ul>
+<li>信息存储</li>
+<li>整数表示</li>
+<li>整数运算</li>
+<li>浮点</li>
+<li>小结</li>
+</ul>
+<h4 id="信息存储"><a href="#信息存储" class="headerlink" title="信息存储"></a>信息存储</h4><h3 id="第三章-程序的机械级表示"><a href="#第三章-程序的机械级表示" class="headerlink" title="第三章 程序的机械级表示"></a>第三章 程序的机械级表示</h3><ul>
+<li>gcc编译器的使用</li>
+<li>汇编语言</li>
+<li>boom</li>
+</ul>
+<h4 id="gcc"><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h4><p>gcc编译器是通过命令行来实现的，在mac下需要单独安装，在linux下是自带</p>
+<p>在启动的时候会安排优化级别，二级优化是性能优化和使用方便的一种折中</p>
+<p>在启动gcc编译器的时候会首先调用将插入所有用#include命令指定的文件，并且扩展宏</p>
+<p>其次编译器将.c文件转换为汇编语言的.s文件</p>
+<p>最后汇编器将汇编代码转换为二进制目标代码文件.o</p>
+<pre><code>gcc -O2 -S code.c
+gcc -O2 -C code.c
+objdump -d code.o
+movl $0x4050,%eax                          Immediate-Register
+</code></pre>
+<p><img src="https://s1.ax1x.com/2020/06/07/t2vZ5R.png" alt="image-20200517173220188" loading="lazy"></p>
+<ul>
+<li>跳转指令：跳转到另一行指令（指令一般是一行一行的执行）</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/06/07/t2vNGt.png" alt="image-20200517170403399" loading="lazy"></p>
+<ul>
+<li>条件码：描述了最近的算数或逻辑操作的属性，</li>
+</ul>
+<h4 id="逻辑操作"><a href="#逻辑操作" class="headerlink" title="逻辑操作"></a>逻辑操作</h4><ul>
+<li><p>leal是指将存储器读数据到寄存器，没有引用存储器。将有效地址写入目的操作数（寄存器）</p>
+<p>在这里我们需要熟练的掌握寻址方式，上面我写的表有，可以看看</p>
+</li>
+<li><p><img src="https://s1.ax1x.com/2020/06/07/t2v8VH.png" alt="image-20200517162016418" loading="lazy"></p>
+</li>
+<li><p>右移：右边填上0     左移：左边填上0    x&gt;&gt;&#x3D;2代表将x右移2位</p>
+</li>
+</ul>
+<h3 id="算数操作"><a href="#算数操作" class="headerlink" title="算数操作"></a>算数操作</h3><ul>
+<li>操作分为二元操作和一元操作，二元操作有两个操作数，一元只有一个操作数。</li>
+<li>与mov一样，很多操作都有l，w，b的后缀</li>
+</ul>
+<h4 id="算数和逻辑操作"><a href="#算数和逻辑操作" class="headerlink" title="算数和逻辑操作"></a>算数和逻辑操作</h4><p>以上为3.4节的内容</p>
+<ul>
+<li>定义指针，就是分配一个内存地址，如果这个指针指向一个变量，我们将读取这个指针的值，这个操作叫做指针的间接引用。但不仅仅包括读，写也是一种间接引用</li>
+<li>C中的&amp;称为取址符，是创建一个指针。指针可以表示为一个寄存器的引用（），这样就很好的表示出了它的意义</li>
+</ul>
+<h4 id="C中指针的间接引用"><a href="#C中指针的间接引用" class="headerlink" title="C中指针的间接引用"></a>C中指针的间接引用</h4><ul>
+<li><p>栈：向下增长，FILO（first in last out），栈顶元素的地址是栈中最低的</p>
+</li>
+<li><p>我们一般说的栈是程序栈，存放在存储器中的某个区域</p>
+</li>
+<li><p>程序栈是用来保存数据的，栈指针是%esp就是%rsp，用来保存着栈顶元素（栈顶元素的地址是最低的（栈是向下增长的））</p>
+</li>
+<li><p>举例：我们想将一个双字压入堆栈中，首先将栈指针减去4，然后将值写到新的栈顶地址。所以 </p>
+<pre><code>pushl %ebp
+等价于
+subl $4,%esp
+movl %esp,(%esp)
+</code></pre>
+</li>
+<li><p>弹出一个双字就是popl指令，它也等价于先将值写到栈顶指针里，再将指针加4</p>
+</li>
+</ul>
+<h4 id="推入和推出栈"><a href="#推入和推出栈" class="headerlink" title="推入和推出栈"></a>推入和推出栈</h4><p>b则是不改变其他的，仅仅传输低位</p>
+<p>而sbl是将其他三个字节设置为全1或者全0</p>
+<p>zbl将低位2位设置为dh寄存器（edx）的值，其他三个字节为全0</p>
+<ul>
+<li><p>mov有很多形式，movl,movw,movb,movsbl,movzbl</p>
+<p>l代表是传送的是双字，vw传送的是字，b传送的是字节，sbl传送的是符号拓展字节，zbl传送零扩展的字节</p>
+<p><img src="https://s1.ax1x.com/2020/06/07/t2vlrD.png" alt="image-20200513154035105" loading="lazy"></p>
+</li>
+<li><p>原则：在IA32中传输指令的两个操作数不能都指向存储器的位置</p>
+<p>也就是说将一个值从一个存储器的位置放到另一个存储器的位置需要两条指令，一条负责加载到寄存器中，第二条将寄存器写入目的位置</p>
+</li>
+<li><p>指令规则：除开操作指令，第一个是源操作数，第二个是目的操作数,边角我们采用的是注释的写法</p>
+</li>
+</ul>
+<h4 id="数据传送指令"><a href="#数据传送指令" class="headerlink" title="数据传送指令"></a>数据传送指令</h4><p>练习题对照图3.3来操作</p>
+<p>1）%eax，%dx就是寄存器的名字 2）(%rax)。只要是有括号的了，那就是内存引用。注意x86-64中的内存引用总是用四字长寄存器给出的，即寄存器名字开头都是r开头的。(%rax)意思是取寄存器%rax中的存的地址中的存的值，相当于解引用两次，先解引用寄存器，再解引用这地址（我用“解引用”这个词只是为了方便理解）。 3）mov命令中，两个操作数只允许有一个内存引用，即只能有一个带括号的。 4）关于mov命令的后缀，肯定与内存引用中的寄存器的长度无关，而是与另一个寄存器的长度有关 5）b代表1个字节；w代表1个字，2个字节；l代表2个字，4个字节；q代表4个字，8个字节。</p>
+<h4 id="汇编命令总结"><a href="#汇编命令总结" class="headerlink" title="汇编命令总结"></a>汇编命令总结</h4><p><img src="https://s1.ax1x.com/2020/06/07/t2v8VH.png" alt="image-20200513124559271" loading="lazy"></p>
+<p>伸缩化的变址寻址</p>
+<p>比例寻址</p>
+<p>有立即数寻址，寄存器寻址，绝对寻址，间接寻址，（基址+偏移量）寻址</p>
+<ul>
+<li>寻址模式</li>
+</ul>
+<p>存储器访问要比寄存器访问要慢</p>
+<p>根据计算出来的地址（有效地址）访问某个存储器的位置。</p>
+<ul>
+<li>存储器引用</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/06/07/t2vKxK.png" alt="image-20200513150705333" loading="lazy"></p>
+<p>用Ea来表示任意寄存器a，通过引用R[Ea]来表示他的值，将寄存器集合看成一个数组，用寄存器标识符作为索引</p>
+<ul>
+<li>寄存器</li>
+</ul>
+<p>例如：$-577和$0x1F 任何32位的字都可以用作立即数</p>
+<p>$+整数是它的表示方法</p>
+<p>一种操作数的类型，是常数值，采用标准C的表示方法</p>
+<ul>
+<li>立即数</li>
+</ul>
+<h4 id="操作数指令符"><a href="#操作数指令符" class="headerlink" title="操作数指令符"></a>操作数指令符</h4><p>至此，前三节结束</p>
+<p><img src="https://s1.ax1x.com/2020/06/07/t2vZ5R.png" alt="16位CPU的对应图" loading="lazy"></p>
+<p>大多数汇编指令操作对字节或者双字</p>
+<p>字(Word)：不同计算机系统中占据一个单独的地址(内存单元的编号)并作为一个单元(由一个或多个字节组合而成)处理的一组二进制数。8位的CPU字长为8位，一个字等于一个字节，一次只能处理一个字节，而32位的CPU字长为32位，一个字等于4个字节，一次就能处理4个字节，同理字长为64位的CPU一次可以处理8个字节，一个字等于8个字节。</p>
+<p>字长：电脑技术中对CPU在单位时间内(同一时间)能一次处理的二进制数的位数</p>
+<p>字节（Byte）  ：8个二进制位构成1个字节（B），1个字节可以储存1个英文字母或半个汉字。字节是存储空间的基本计量单位，计算机杨的内存和磁盘的容量都是以字节表示的。八位二进制数最小为00000000，最大为11111111；</p>
+<p>位(Bit):：在计算机中，数据的最小单位是位，表示一个二进制数码0或1</p>
+<p>Intel将字表示为16位数据，所以称32位为双字，64位为四字</p>
+<h4 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h4><p>在了解汇编语言之前，我们先了解一下数据格式</p>
+<ul>
+<li>程序计数器：存放指令的地址(%eip)表示</li>
+<li>整数寄存器：存储32位的值，存储整数或者地址</li>
+<li>条形码寄存器：存储算数指令的状态信息（if while语句）</li>
+<li>浮点寄存器：包含8个位置，存放浮点数据</li>
+<li>程序存储器：管理程序调用和返回的堆栈(合法地址较少，虚拟地址较多)</li>
+</ul>
+<h4 id="汇编语言"><a href="#汇编语言" class="headerlink" title="汇编语言"></a>汇编语言</h4><ol>
+<li>反汇编器不需要访问程序的源代码或汇编代码</li>
+</ol>
+<p>-d 代表生成汇编代码格式</p>
+<p>我们可以利用反汇编器来确定程序的字节表示</p>
+<ul>
+<li>反汇编器</li>
+</ul>
+<p>这时便会产生 .o二进制文件</p>
+<p>-C代表编译并汇编该语言</p>
+<p>-S 代表查看C编译器产生的汇编代码</p>
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://s1.ax1x.com/2020/06/08/tWNMvj.jpg"><img loading="lazy" src="https://s1.ax1x.com/2020/06/08/tWNMvj.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://s1.ax1x.com/2020/06/08/tWNlKs.jpg"><img loading="lazy" src="https://s1.ax1x.com/2020/06/08/tWNlKs.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>温鑫</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="http://wenxiy.site/2020/06/07/CSAPP%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0/" title="CSAPP个人笔记">http://wenxiy.site/2020/06/07/CSAPP%E4%B8%AA%E4%BA%BA%E7%AC%94%E8%AE%B0/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2020/06/08/%E8%87%AA%E5%AE%9A%E4%B9%89view/" rel="prev" title="Android开发艺术探索读书笔记"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">Android开发艺术探索读书笔记</span></a></div><div class="post-nav-item"></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>点击按钮跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" target="_blank" rel="noopener" href="https://github.com/YunYouJun/yunyoujun.github.io/issues?q=is:issue+CSAPP个人笔记">GitHub Issues</a></div><div id="valine-container"></div><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function initValine() {
+  const valineConfig = {"enable":true,"appId":"6VyDtqsM17IgTGtfEuqRtKGU-gzGzoHsz","appKey":"7nQJo7oNdyqJ0dvga6sYsS8f","placeholder":"Just go go","avatar":null,"pageSize":10,"visitor":false,"highlight":true,"recordIP":false,"enableQQ":true,"el":"#valine-container","lang":"zh-cn"}
+  valineConfig.path = window.location.pathname
+  new Valine(valineConfig)
+}
+setTimeout(initValine, 1000)</script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2020 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 温鑫</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.1.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v0.8.1</span></div><div class="live_time"><span>本博客已苟延残喘地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  window.setTimeout(blog_live_time, 1000);
+  const start = new Date('2020-06-06T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>let date = new Date();
+let today = (date.getMonth() + 1) + "-" + date.getDate()
+if ("4-4,9-18,3-30".indexOf(today) !== -1) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div><script defer src="/js/utils.js"></script><script defer src="/js/hexo-theme-yun.js"></script></body></html>
