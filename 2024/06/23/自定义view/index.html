@@ -1,32 +1,329 @@
-extends includes/layout.pug
-
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
-
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable && theme.reward.QR_code
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>自定义View | Hexo</title><meta name="author" content="Wen Xin"><meta name="copyright" content="Wen Xin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="自定义view 定义 View是所有控件的基类：Button、Textview View是一种界面层空间的抽象，VIew与ViewGroup代表了控件和控件组 这意味着View本身可以是单个控件也可以是由多个控件组成的一个控件组，这种结构就形成了一种View树的结构 类似于前端的DOM树  View的层级结构   Object-View-TextView-TestButton  View的位置参数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义View">
+<meta property="og:url" content="https://wenxiy.github.io/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="自定义view 定义 View是所有控件的基类：Button、Textview View是一种界面层空间的抽象，VIew与ViewGroup代表了控件和控件组 这意味着View本身可以是单个控件也可以是由多个控件组成的一个控件组，这种结构就形成了一种View树的结构 类似于前端的DOM树  View的层级结构   Object-View-TextView-TestButton  View的位置参数">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-06-23T03:07:35.845Z">
+<meta property="article:modified_time" content="2024-06-23T03:36:19.271Z">
+<meta property="article:author" content="Wen Xin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wenxiy.github.io/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '自定义View',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-23 11:36:19'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Hexo"><span class="site-name">Hexo</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">自定义View</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-06-23T03:07:35.845Z" title="Created 2024-06-23 11:07:35">2024-06-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-06-23T03:36:19.271Z" title="Updated 2024-06-23 11:36:19">2024-06-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="自定义View"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="自定义view"><a href="#自定义view" class="headerlink" title="自定义view"></a>自定义view</h2><ul>
+<li><p>定义</p>
+<p>View是所有控件的基类：Button、Textview View是一种界面层空间的抽象，VIew与ViewGroup代表了控件和控件组 这意味着View本身可以是单个控件也可以是由多个控件组成的一个控件组，这种结构就形成了一种View树的结构 类似于前端的DOM树</p>
+</li>
+<li><p>View的层级结构</p>
+</li>
+</ul>
+<p>Object-View-TextView-TestButton</p>
+<ul>
+<li>View的位置参数</li>
+</ul>
+<p>VIew的位置主要是由四个顶点的位置来决定的：top（左上角纵坐标）、left（左上角横坐标）、right（右下角横坐标）、bottom（右下角纵坐标）（这都是一种相对坐标）</p>
+<p>![View](&#x2F;Users&#x2F;wenxin&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20200526213943485.png)</p>
+<h4 id="VIew的宽高和坐标关系："><a href="#VIew的宽高和坐标关系：" class="headerlink" title="VIew的宽高和坐标关系："></a>VIew的宽高和坐标关系：</h4><ul>
+<li>width&#x3D;right-left height&#x3D;bottom-top</li>
+</ul>
+<p>利用Left&#x3D;getLeft(); Right&#x3D;getRight(); Top&#x3D;getTop; Bottom&#x3D;getBottom().</p>
+<ul>
+<li>从Android3.0开始，View新增了X，Y，translationXhetranslationY</li>
+</ul>
+<p>XY是左上角的图标 translationX和TranslationY是对于父容器的偏移量，默认值为0</p>
+<p>View也提供了set和get方法给这两个参数</p>
+<p>换算关系如下</p>
+<p>X&#x3D;left+translationX</p>
+<p>y&#x3D;top+translationY</p>
+<p>View在平移的过程中 top和left是表示原始左上角的位置信息，值并不会发生改变</p>
+<h4 id="MotionEvent和TouchSlop"><a href="#MotionEvent和TouchSlop" class="headerlink" title="MotionEvent和TouchSlop"></a>MotionEvent和TouchSlop</h4><ul>
+<li>MotionEvent</li>
+</ul>
+<p>在手指接触屏幕所产生的一系列事件中，典型的事件类型有如下几种</p>
+<p>ACTION_DOWN：手指刚接触屏幕</p>
+<p>ACTION_MOVE：手指在屏幕上移动;</p>
+<p>ACTION_UP：手机从屏幕上松开的一瞬间</p>
+<p>一般会有这两种情况：</p>
+<ul>
+<li>手指点击屏幕后再松开：DOWN-&gt;UP</li>
+<li>手指点击屏幕滑动一会后松开：DOWN-&gt;MOVE-&gt;….-&gt;MOVE-&gt;UP</li>
+</ul>
+<p>通过MotionEvent对象来获得点击事件发生的X和Y坐标。</p>
+<p>getX&#x2F;getY&#x2F;getRawX&#x2F;getRawY</p>
+<p>getX和getY是返回当前View左上角的X和Y坐标。而getRawX和getRawY是返回手机屏幕最上角的X和Y坐标</p>
+<ul>
+<li>TouchSlop</li>
+</ul>
+<p>定义：系统所能识别出的被认为是滑动的最小距离</p>
+<p>当滑动的距离小于这个值的时候，系统就不任务进行了一次滑动。所以说TouchSlop是一个常量</p>
+<p>我们通过ViewConfiguration.get(getComtext()).getScaledTouchSlop()来获得</p>
+<h4 id="VelocityTracker、GestureDestector和Scroller"><a href="#VelocityTracker、GestureDestector和Scroller" class="headerlink" title="VelocityTracker、GestureDestector和Scroller"></a>VelocityTracker、GestureDestector和Scroller</h4><ul>
+<li>VelocityTracker：速度追踪，用于追踪手指在滑动过程中的速度，包括水平和竖直方向的速度</li>
+</ul>
+<p>方法：VIew的onTouchEvent方法VelocityTracker.obtain();来追踪事件的速度</p>
+<p>此时我们需要去添加事件从而进行追踪当前事件的速度：velocityTracker.addMovement(event);&#x2F;&#x2F;添加这个事件</p>
+<p>我们再先计算速度，再去获取速度(都是这个流程)</p>
+<p>计算速度：velocityTracker.computeCurrentVelocity(1000)&#x2F;&#x2F;在1000ms中经过的像素数 从左往右为正，从右往左为负</p>
+<p>然后再去get</p>
+<p>最后当我们不需要VelocityTracker这个对象的时候去：</p>
+<p>velocityTracker.clear();</p>
+<p>velocityTracker.recycle();</p>
+<ul>
+<li>GestureDetector：手势检测，辅助检测用户的单机、滑动、长按、双击</li>
+</ul>
+<p>首先创建一个GestureDetector对象，这个对象实现接口OnGetureListener，还可以去实现OnDoubleTapListener监听双击行为</p>
+<pre class="highlight"><span class="line">GestureDetector mgestureDetector =new GestureDetector(this)</span><br><span class="line">mgestureDetector.setIsLongpressEnabled(false)//解决长按屏幕无法拖动的现象</span><br></pre>
+
+<p>在待监听的View的onTouchEvent方法中添加</p>
+<pre class="highlight"><span class="line">boolean consume=mGestureDetector.onTouchEvent(event);</span><br><span class="line">return consume;</span><br></pre>
+
+<p>至此，就可以去实现监听和接口的方法了</p>
+<p>![image-20200528120533453](&#x2F;Users&#x2F;wenxin&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20200528120533453.png)</p>
+<ul>
+<li>Scroller：弹性滑动对象，实现View的弹性滑动</li>
+</ul>
+<p>具体3.2中讲解</p>
+<h4 id="View的滑动（第一种View的滑动效果实现）"><a href="#View的滑动（第一种View的滑动效果实现）" class="headerlink" title="View的滑动（第一种View的滑动效果实现）"></a>View的滑动（第一种View的滑动效果实现）</h4><ul>
+<li>scrollTo&#x2F;scrollBy：View专门实现滑动的功能所提供的方法。</li>
+</ul>
+<p>scrollTo是一种绝对滑动 scrollBy是一种在To的基础上的相对滑动</p>
+<p>“如果从左向右滑动，那么mScrollX为负值，反之为正值；如果从上往下滑动，那么mScrollY为负值，反之为正值。”</p>
+<p>摘录来自: 任玉刚. “Android开发艺术探索。”</p>
+<p>![image-20200528123941299](&#x2F;Users&#x2F;wenxin&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20200528123941299.png)</p>
+<h4 id="动画的使用（第二种实现View的滑动效果）"><a href="#动画的使用（第二种实现View的滑动效果）" class="headerlink" title="动画的使用（第二种实现View的滑动效果）"></a>动画的使用（第二种实现View的滑动效果）</h4><ul>
+<li>定义：使用动画来移动View，而不是平移（滑动）来移动View</li>
+<li>分类<ul>
+<li>传统动画：</li>
+<li>属性动画：采用开源库</li>
+</ul>
+</li>
+<li>注意：VIew的动画只是对View的一个影像做的操作，没有真正的改变View的位置参数，宽与高</li>
+<li>具体在第五章《Android开发艺术探索》讲解</li>
+</ul>
+<h4 id="改变布局参数（第三中实现View的滑动效果）"><a href="#改变布局参数（第三中实现View的滑动效果）" class="headerlink" title="改变布局参数（第三中实现View的滑动效果）"></a>改变布局参数（第三中实现View的滑动效果）</h4><p>通过改变布局参数从而来实现VIew的滑动</p>
+<p>两种办法：</p>
+<ul>
+<li>设置一个空的View来“挤”需要滑动的组件（1）</li>
+<li>重新设置滑动组件的marginLeft参数（2）</li>
+</ul>
+<p>（2）来实现</p>
+<pre class="highlight"><span class="line">MarginLayoutParams params=(MarginLayoutParams)mButton1.getLayoutParams();</span><br><span class="line">params.width+=100;//参数变化</span><br><span class="line">params.leftMargin+=100;//参数变化</span><br><span class="line">mButton1.requestLayout();//重新排布局，刷新布局，这样就达到了滑动的效果</span><br></pre>
+
+<h4 id="滑动方式的对比"><a href="#滑动方式的对比" class="headerlink" title="滑动方式的对比"></a>滑动方式的对比</h4><ul>
+<li>scrollTo&#x2F;scrollBy:View的原生方法，专门用于View的滑动，方便，不影响点击事件，但是只能滑动View本身不能滑动VIew本身</li>
+<li>动画：采用属性动画的办法是一种比较好的办法，几乎没有缺点。复杂效果必须要通过动画来实现，如果无交互需求的话可以采用动画，操作简单</li>
+<li>改变布局：使用麻烦，主要适用有交互性的View</li>
+</ul>
+<h3 id="弹性滑动"><a href="#弹性滑动" class="headerlink" title="弹性滑动"></a>弹性滑动</h3><ul>
+<li>思想：将一次大的滑动分成若干次小的滑动并在一段时间内完成，</li>
+</ul>
+<h4 id="方法一：使用Scroller"><a href="#方法一：使用Scroller" class="headerlink" title="方法一：使用Scroller"></a>方法一：使用Scroller</h4><p>当我们new了一个新的Scroller对象时，我们调用startScrooller方法时，我们只是保存了几个我们传递的参数</p>
+<p>,这表示我们并不是利用Scroller的start来实现一种滑动的。我们调用invalidate方法，证明：invalidate方法导致view重绘，在View的draw方法中又回去调用computeScroll方法，computeScroll方法在View中是一个空实现</p>
+<p>所以需要自己去实现，应为这个方法才会去实现弹性的滑动</p>
+<p>在computerScroll方法中，返回值是一个布尔，如果返回的是对的，证明这个View滑动还没有结束。反之结束</p>
+<h4 id="方法二：通过动画"><a href="#方法二：通过动画" class="headerlink" title="方法二：通过动画"></a>方法二：通过动画</h4><p>使用ObjectAnimator.ofFloat(yargetView,“translationx”,0,100)</p>
+<p>(100).start;</p>
+<p>可以让一个View内容在100ms内向左移动100像素</p>
+<h4 id="方法三：通过延迟策略"><a href="#方法三：通过延迟策略" class="headerlink" title="方法三：通过延迟策略"></a>方法三：通过延迟策略</h4><p>采用Handler或者View的机制</p>
+<h3 id="View的事件分发机制"><a href="#View的事件分发机制" class="headerlink" title="View的事件分发机制"></a>View的事件分发机制</h3><ul>
+<li>点击事件的传递规则</li>
+</ul>
+<p>MotionEvent</p>
+<p>点击事件的传递过程是由三个组成dispatchTouchEvent、onInterceptTouchEvent、onTouchEvent</p>
+<p>dispatchTouchEvent(MotionEvent ev)表示传递给当前View的onTouchEvent和下级的dispatchTouchEvent方法的影响 布尔类型</p>
+<p>表示是否消耗当前事件</p>
+<p>onInterceptTouchEvent(MotionEvent event)在方法中内部调用，用于判断是否拦截某个事件，如果View拦截了某个事件，那么在同一个事件序列当中，此方法不再去调用，返回结果表示是否拦截当前事件 布尔类型</p>
+<p>onTouchEvent方法在DispatchTouchEvent方法中调用，用来处理点击事件，返回结果表示是否消耗当前事件 布尔类型 如果不消耗，则在同一个事件序列中，当前View无法在接收到事件</p>
+<p>“对于一个根ViewGroup来说，点击事件产生后，首先会传递给它，这时它的dispatchTouchEvent就会被调用，如果这个ViewGroup的onInterceptTouchEvent方法返回true就表示它要拦截当前事件，接着事件就会交给这个ViewGroup处理，即它的onTouchEvent方法就会被调用；如果这个ViewGroup的onInterceptTouchEvent方法返回false就表示它不拦截当前事件，这时当前事件就会继续传递给它的子元素，接着子元素的dispatchTouchEvent方法就会被调用，如此反复直到事件被最终处理。”</p>
+<p>摘录来自: 任玉刚. “Android开发艺术探索。” Apple Books.</p>
+<p>上述我们说明了如何去拦截，下面我们来说说怎么处理</p>
+<p>当一个View设置了OnTouchListener</p>
+<p>在OnTouchListener中的onTouch方法被回调，然后这个方法的返回值是false则调用，如果是true则不会调用</p>
+<p>优先级排列：OnTouchListener&gt;OnTouchEvent&gt;OnClickListener</p>
+<ul>
+<li>点击事件的传递顺序：Activity-&gt;Window-&gt;View</li>
+</ul>
+<p>当View接受到事件后，就会按照事件分发机制去处理</p>
+<p>但如果OnTouchEvent返回的结果是false则会往上传递（父类的OnTouchEvent）最后如果解决不了上传至Activity的OnTouchEvent</p>
+<ul>
+<li>整个传递机制</li>
+</ul>
+<ol>
+<li>以Down开始，中间无数的Move，以Up结束</li>
+<li>一个事件序列只能被一个View拦截且消耗</li>
+<li>某个View一旦决定拦截，那么这个事件序列都只能由他来处理</li>
+<li>如果某个View一旦开始处理事件，如果没有消耗ACTION_DOWN事件，就同一时间序列的其他事件都不会再交于他来处理</li>
+</ol>
+<h3 id="事件分发的源码解析"><a href="#事件分发的源码解析" class="headerlink" title="事件分发的源码解析"></a>事件分发的源码解析</h3><h4 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h4><ol>
+<li><p>当点击事件MotionEvent发生操作的时候，</p>
+</li>
+<li><p>我们将事件传递给当前的Activity，</p>
+</li>
+<li><p>再由Activity的DispatchTouchEvent来进行事件派发。</p>
+</li>
+<li><p>Activity的内部Window来完成，会将事件传递给Decorview</p>
+</li>
+<li><p>decorview一般是当前的底层容器（setContentView的参数）<br>通过</p>
+<pre class="highlight"><span class="line">Activity.getWindow.getDecorView()</span><br></pre>
+
+<p>获得</p>
+<h4 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h4></li>
+<li><p>Activity的dispatchTouchEvent</p>
+<pre class="highlight"><span class="line">public boolean dispatchTouchEvent(MotionEvent ev)&#123;</span><br><span class="line">  if(ev.getAction()==MotionEvent.ACTION_DOWN)&#123;</span><br><span class="line"> onUserInteraction();</span><br><span class="line">  &#125;</span><br><span class="line">  if(getWindow().superDispatchTouchEvent(ev))&#123;</span><br><span class="line"> return true;</span><br><span class="line">  &#125;</span><br><span class="line">  return onTouchEvent(ev);</span><br><span class="line">&#125;</span><br></pre>
+
+<p>返回true证明有人处理，那就循环结束<br>如果返回false，证明没人处理，就调用Activity的onTouchEvent</p>
+</li>
+<li><p>Window-&gt;ViewGroup<br>首先明确Window是一个抽象类，Window的superDispatchTouchEvent(MotionEvent event)也是一个抽象的方法<br>所以先要找到实现类<br>Window的实现类是PhoneWindow<br>所以我们查看<strong>PhoneWindow</strong>的<strong>superDisptachTouchEvent方法</strong></p>
+<pre class="highlight"><span class="line">public boolean superDispatchTouchEvent(MotionEvent event)&#123;</span><br><span class="line">  return mdecor.superDispatchTouchEvent(event);</span><br><span class="line">&#125;</span><br></pre>
+
+<p>PhoneWindow直接将事件传递给了DecorView</p>
+<pre class="highlight"><span class="line">private final class DecorView extends FrameLayout implements RootViewSur-faceTaker</span><br><span class="line">private DecorView mdecor;</span><br><span class="line">@override</span><br><span class="line">public final View getDecorView()&#123;</span><br><span class="line">  if(mDecor==null)&#123;</span><br><span class="line"> installDecor();</span><br><span class="line">  &#125;</span><br><span class="line">  return mDecor;</span><br><span class="line">&#125;</span><br></pre>
+
+<p>在此时已经传递到了顶级的View<br>也就是ViewGroup，根View，通过传递给顶级的View来进行一个处理（就是setContentView所设置的View）</p>
+</li>
+<li><p>顶级View对事件的分发机制<br>在View中的时间处理如下：<br>如果顶级View的拦截事件onInterceptTouchEvent返回true，则事件由ViewGroup来处理，如果ViewGroup的mOntouchListener被设置，onTouch会调用，否则是onTouchEvent被调用，如果都提供的话，onTouch会屏幕onTouchEvent，在onTouchEvent中，如果设置了mOnClickListener,则onClick会被调用，如果ViewGroup不拦截事件，则会传递到子View上<br>子View的dispatchTouchEvent会被调用。接下来都一样</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io">Wen Xin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/">https://wenxiy.github.io/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/" title="Activity Intent"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">Activity Intent</div></div></a></div><div class="next-post pull-right"><a href="/2024/06/23/%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%9A%E5%B8%AE%E5%8A%A9%E5%88%B0%E8%BE%BE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E6%89%BE%E5%88%B0%E5%BA%94%E7%94%A8%E8%BF%9B%E7%A8%8B/" title="计网运输层"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">计网运输层</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wen Xin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89view"><span class="toc-number">1.</span> <span class="toc-text">自定义view</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#VIew%E7%9A%84%E5%AE%BD%E9%AB%98%E5%92%8C%E5%9D%90%E6%A0%87%E5%85%B3%E7%B3%BB%EF%BC%9A"><span class="toc-number">1.0.1.</span> <span class="toc-text">VIew的宽高和坐标关系：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MotionEvent%E5%92%8CTouchSlop"><span class="toc-number">1.0.2.</span> <span class="toc-text">MotionEvent和TouchSlop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VelocityTracker%E3%80%81GestureDestector%E5%92%8CScroller"><span class="toc-number">1.0.3.</span> <span class="toc-text">VelocityTracker、GestureDestector和Scroller</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#View%E7%9A%84%E6%BB%91%E5%8A%A8%EF%BC%88%E7%AC%AC%E4%B8%80%E7%A7%8DView%E7%9A%84%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="toc-number">1.0.4.</span> <span class="toc-text">View的滑动（第一种View的滑动效果实现）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%A7%8D%E5%AE%9E%E7%8E%B0View%E7%9A%84%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%EF%BC%89"><span class="toc-number">1.0.5.</span> <span class="toc-text">动画的使用（第二种实现View的滑动效果）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9%E5%8F%98%E5%B8%83%E5%B1%80%E5%8F%82%E6%95%B0%EF%BC%88%E7%AC%AC%E4%B8%89%E4%B8%AD%E5%AE%9E%E7%8E%B0View%E7%9A%84%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%EF%BC%89"><span class="toc-number">1.0.6.</span> <span class="toc-text">改变布局参数（第三中实现View的滑动效果）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BB%91%E5%8A%A8%E6%96%B9%E5%BC%8F%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">1.0.7.</span> <span class="toc-text">滑动方式的对比</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E6%BB%91%E5%8A%A8"><span class="toc-number">1.1.</span> <span class="toc-text">弹性滑动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8Scroller"><span class="toc-number">1.1.1.</span> <span class="toc-text">方法一：使用Scroller</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E9%80%9A%E8%BF%87%E5%8A%A8%E7%94%BB"><span class="toc-number">1.1.2.</span> <span class="toc-text">方法二：通过动画</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9A%E9%80%9A%E8%BF%87%E5%BB%B6%E8%BF%9F%E7%AD%96%E7%95%A5"><span class="toc-number">1.1.3.</span> <span class="toc-text">方法三：通过延迟策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6"><span class="toc-number">1.2.</span> <span class="toc-text">View的事件分发机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E7%9A%84%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">事件分发的源码解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">操作流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="toc-number">1.3.2.</span> <span class="toc-text">源码解析</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/" title="Android请求权限问题">Android请求权限问题</a><time datetime="2024-06-23T03:07:35.846Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/" title="Activity Intent">Activity Intent</a><time datetime="2024-06-23T03:07:35.845Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/" title="自定义View">自定义View</a><time datetime="2024-06-23T03:07:35.845Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%9A%E5%B8%AE%E5%8A%A9%E5%88%B0%E8%BE%BE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E6%89%BE%E5%88%B0%E5%BA%94%E7%94%A8%E8%BF%9B%E7%A8%8B/" title="计网运输层">计网运输层</a><time datetime="2024-06-23T03:07:35.843Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/%E5%BC%95%E8%A8%80/" title="Dagger2">Dagger2</a><time datetime="2024-06-23T03:07:35.842Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Wen Xin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

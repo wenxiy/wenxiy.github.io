@@ -1,32 +1,237 @@
-extends includes/layout.pug
-
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
-
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable && theme.reward.QR_code
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Android请求权限问题 | Hexo</title><meta name="author" content="Wen Xin"><meta name="copyright" content="Wen Xin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Android请求权限问题 概念 如何操作 源码解析  概念因为Android应用都是在类似于沙盒的中允许，只能访问沙盒内部的资源，如果想要访问沙盒外的资源就需要去请求权限。 在Android 6（不包含Android 6）以下的时候我们经常是当我们安装应用的时候，会提示用户是否允许，当升级应用需要更多权限的时候也会进行一个提示，在Android 6 （包含Android6）以上 ，Google改">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android请求权限问题">
+<meta property="og:url" content="https://wenxiy.github.io/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Android请求权限问题 概念 如何操作 源码解析  概念因为Android应用都是在类似于沙盒的中允许，只能访问沙盒内部的资源，如果想要访问沙盒外的资源就需要去请求权限。 在Android 6（不包含Android 6）以下的时候我们经常是当我们安装应用的时候，会提示用户是否允许，当升级应用需要更多权限的时候也会进行一个提示，在Android 6 （包含Android6）以上 ，Google改">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-06-23T03:07:35.846Z">
+<meta property="article:modified_time" content="2024-06-23T03:17:23.068Z">
+<meta property="article:author" content="Wen Xin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wenxiy.github.io/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Android请求权限问题',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-23 11:17:23'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Hexo"><span class="site-name">Hexo</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Android请求权限问题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-06-23T03:07:35.846Z" title="Created 2024-06-23 11:07:35">2024-06-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-06-23T03:17:23.068Z" title="Updated 2024-06-23 11:17:23">2024-06-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Android请求权限问题"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Android请求权限问题"><a href="#Android请求权限问题" class="headerlink" title="Android请求权限问题"></a>Android请求权限问题</h2><ul>
+<li>概念</li>
+<li>如何操作</li>
+<li>源码解析</li>
+</ul>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>因为Android应用都是在类似于沙盒的中允许，只能访问沙盒内部的资源，如果想要访问沙盒外的资源就需要去请求权限。</p>
+<p>在Android 6（不包含Android 6）以下的时候我们经常是当我们安装应用的时候，会提示用户是否允许，当升级应用需要更多权限的时候也会进行一个提示，在Android 6 （包含Android6）以上 ，Google改变了这种请求的做法，列出了一些请求的原则，为了更好的去保护用户的隐私</p>
+<ul>
+<li>在用户需要互动时再请求对应的权限</li>
+<li>权限对应某种功能，拒绝此权限不能让用户不能使用APP，只需要拒绝某项功能，并且适当降低应用权限</li>
+<li>不要假设任何系统行为</li>
+</ul>
+<p>在Android 6对于的API是 23，在这里我们可以说SDK可以与API对于，但是二者还是有一些区别，SDK是Software Development Kit（软件开发工具包） API是Application Programming Interface（编程接口）。SDK是程序包，程序包中有一些软件功能，程序包几乎是全封闭的，只有接口可联通外界，这个接口就是API。使用软件功能就通过API。当然在Android SDK可以和API对应起来</p>
+<p>常见场景：</p>
+<ul>
+<li>读取短信信息</li>
+<li>读取日历表的内容</li>
+<li>获得通讯录的内容（联系人，手机号码）</li>
+<li>获取媒体图片</li>
+</ul>
+<p>首先我们可以看一下我们模拟器的权限</p>
+<p><img src="https://s1.ax1x.com/2020/08/08/a5Q0Dx.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s1.ax1x.com/2020/08/08/a5Q0Dx.png" class="lozad post-image"></p>
+<p>d 代表的是 directory 目录的意思 -代表的是文件的意思</p>
+<p>后面每3个一组 r&#x3D;read w&#x3D;write x&#x3D;execute（执行）</p>
+<p>第一组是自己的权限、第二组是同组的权限（文件所属的用户组），第三组是除了自己和自己组其他组的</p>
+<h3 id="如何操作"><a href="#如何操作" class="headerlink" title="如何操作"></a>如何操作</h3><h4 id="申明权限"><a href="#申明权限" class="headerlink" title="申明权限"></a>申明权限</h4><p>我们需要在ManiFest中申请权限，例如网络请求权限</p>
+<pre class="highlight"><span class="line">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;</span><br></pre>
+
+<p>还有一些常见的权限</p>
+<pre class="highlight"><span class="line">&lt;uses-permission android:name=&quot;android.permission.READ_CONTACTS&quot;/&gt;         读取联系人</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.READ_SMS&quot;/&gt;              读取短信内容</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.DEVICE_POWER&quot;/&gt;          电源管理</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.CAMERA&quot;/&gt;                拍照</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.READ_FRAME_BUFFER&quot;/&gt;     屏幕截图</span><br><span class="line">&lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot;/&gt; 读外部存储（媒体库</span><br></pre>
+
+<h4 id="检查权限"><a href="#检查权限" class="headerlink" title="检查权限"></a>检查权限</h4><p>利用checkSelfPermission来检查权限</p>
+<p>checkSelfPermission方法返回一个静态int的Permission_Granted（允许）或者Permission_denied（拒绝）</p>
+<pre class="highlight"><span class="line">int readPermission = checkSelfPermission(Manifest.permission.READ_CALENDAR);</span><br><span class="line">int writePermission = checkSelfPermission(Manifest.permission.WRITE_CALENDAR);</span><br><span class="line">if (readPermission !=PackageManager.PERMISSION_GRANTED)&#123;</span><br><span class="line">//这里表示没有读的权限</span><br><span class="line">&#125;</span><br><span class="line">if (writePermission !=PackageManager.PERMISSION_GRANTED)&#123;</span><br><span class="line">//表示没有写的权利后该怎么做</span><br><span class="line">&#125;</span><br></pre>
+
+<p>如果当检查权限的时候，没有权限（返回PERMISSION_DENIED）</p>
+<p>Google提供了一种方法：让开发者去说明应用为什么需要这个权限</p>
+<p>如果 <code>ContextCompat.checkSelfPermission()</code> 方法返回 <code>PERMISSION_DENIED</code>，请调用 [<code>shouldShowRequestPermissionRationale()</code>](<a target="_blank" rel="noopener" href="https://developer.android.com/reference/androidx/core/app/ActivityCompat?hl=zh-cn#shouldShowRequestPermissionRationale">https://developer.android.com/reference/androidx/core/app/ActivityCompat?hl=zh-cn#shouldShowRequestPermissionRationale</a>(android.app.Activity, java.lang.String))。如果此方法返回 <code>true</code>，请向用户显示指导界面。请在此界面中说明用户希望启用的功能为何需要特定权限。</p>
+<h4 id="申请权限"><a href="#申请权限" class="headerlink" title="申请权限"></a>申请权限</h4><p>当用户查看指导界面后或 <code>shouldShowRequestPermissionRationale()</code> 的返回值表明不需要显示指导界面后，可以请求权限。用户会看到系统权限对话框，并可在其中选择是否向应用授予特定权限</p>
+<p>我们先申请这个权限：</p>
+<pre class="highlight"><span class="line">requestPermissions(new String[]&#123;Manifest.permission.READ_EXTERNAL_STORAGE&#125;, PERMISION_REQUEST_CODE);</span><br></pre>
+
+<p>关于<code>shouldShowRequestPermissionRationale()</code>方法发现了一个很神奇的事情</p>
+<p>如果我们在代码中这么写</p>
+<pre class="highlight"><span class="line">private void checkPermission() &#123;</span><br><span class="line">       //checkSelfPermission方法返回一个静态的Permission_Granted（允许）或者Permission_denied（拒绝）</span><br><span class="line">       int readExStoragePermissonRest = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);</span><br><span class="line">       //许可授权的结果返回给readExStoragePermissonRest</span><br><span class="line">       /**</span><br><span class="line">        * 如果访问的结果是拒绝，那么就请求这个权限</span><br><span class="line">        */</span><br><span class="line">       if (readExStoragePermissonRest != PackageManager.PERMISSION_GRANTED) &#123;</span><br><span class="line">           /**</span><br><span class="line">            * READ_EXTERNAL_STORAGE是外部的存储</span><br><span class="line">            */</span><br><span class="line">           shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE);</span><br><span class="line">           Log.d(TAG, &quot;result&quot; + &quot;-----&gt;&quot; +shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE));</span><br><span class="line">           requestPermissions(new String[]&#123;Manifest.permission.READ_EXTERNAL_STORAGE&#125;, 	 </span><br><span class="line">           PERMISION_REQUEST_CODE);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre>
+
+<p>我们查看log日志：</p>
+<pre class="highlight"><span class="line">D/.MainActivity: result-----&gt;false</span><br></pre>
+
+<p>显示的是false</p>
+<p>这里我们就要知道权限的种类</p>
+<p>权限分为：</p>
+<ul>
+<li>允许：通过</li>
+<li>拒绝：拒绝了<strong>但是还要询问</strong></li>
+<li>禁止：拒绝了且<strong>不再询问</strong></li>
+</ul>
+<p>这个方法大部分时候都会返回false，只有当用户<strong>拒绝</strong>了权限，才能够返回true来进行引导</p>
+<p>也就是说当我们第一次点了拒绝以后，我们就把这个方法的结果设为了true，我们就可以判断这个参数，从而进行引导界面的跳转</p>
+<p>总结一下，各种返回情况是：</p>
+<ul>
+<li>没有请求这个权限，那用户不一定拒绝，那么我就不用去说明，所以<code>shouldShowRequestPermissionRationable</code>返回的是false</li>
+<li>第一次我允许了这个权限，我允许了就不用再去解释为什么需要这个权限，所以我的<code>shouldShowRequestPermissionRationale</code>返回值是false</li>
+<li>第一次我点了拒绝这个权限，并且点了不再弹出，那么就相当于我的禁止，所以我也不会给你去解释这个权限，所以我的<code>shouldShowRequestPermissionRationale</code>返回值是false</li>
+<li>第一次我点了拒绝这个权限，但是我没有点不再弹出，这个时候<code>shouldShowRequestPermissionRationale</code>就返回true，从而去进行引导</li>
+</ul>
+<h4 id="查询权限是否申请成功"><a href="#查询权限是否申请成功" class="headerlink" title="查询权限是否申请成功"></a>查询权限是否申请成功</h4><pre class="highlight"><span class="line">@Override</span><br><span class="line">   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) &#123;</span><br><span class="line">       super.onRequestPermissionsResult(requestCode, permissions, grantResults);</span><br><span class="line">       if (requestCode==PERMISION_REQUEST_CODE)&#123;</span><br><span class="line">           if (grantResults.length&gt;0&amp;&amp;grantResults[0]==PackageManager.PERMISSION_GRANTED) &#123;</span><br><span class="line">               //以下是申请成功</span><br><span class="line">           &#125;</span><br><span class="line">           else &#123;</span><br><span class="line">               //以下是申请失败</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre>
+
+<h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><p>我们先来看一下申请权限requestPermissions的源码</p>
+<pre class="highlight"><span class="line"> public final void requestPermissions(@NonNull String[] permissions, int requestCode) &#123;</span><br><span class="line">        if (requestCode &lt; 0) &#123;</span><br><span class="line">            throw new IllegalArgumentException(&quot;requestCode should be &gt;= 0&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if (mHasCurrentPermissionsRequest) &#123;</span><br><span class="line">            Log.w(TAG, &quot;Can request only one set of permissions at a time&quot;);</span><br><span class="line">            // Dispatch the callback with empty arrays which means a cancellation.</span><br><span class="line">            onRequestPermissionsResult(requestCode, new String[0], new int[0]);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        Intent intent = getPackageManager().buildRequestPermissionsIntent(permissions);</span><br><span class="line">        startActivityForResult(REQUEST_PERMISSIONS_WHO_PREFIX, intent, requestCode, null);</span><br><span class="line">        mHasCurrentPermissionsRequest = true;</span><br><span class="line">    &#125;</span><br><span class="line">public Intent buildRequestPermissionsIntent(@NonNull String[] permissions) &#123;</span><br><span class="line">        if (ArrayUtils.isEmpty(permissions)) &#123;</span><br><span class="line">           throw new IllegalArgumentException(&quot;permission cannot be null or empty&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        Intent intent = new Intent(ACTION_REQUEST_PERMISSIONS);</span><br><span class="line">        intent.putExtra(EXTRA_REQUEST_PERMISSIONS_NAMES, permissions);</span><br><span class="line">        intent.setPackage(getPermissionControllerPackageName());</span><br><span class="line">        return intent;</span><br><span class="line">    &#125;</span><br></pre>
+
+<p>首先这个是没有返回值的，而且我们规定requestcode的值要大于等于0</p>
+<p>其次我们在这个方法中创建了一个Intent，先利用getPackageManager来获取一个PackageManager对象（PackageManager服务管理的类，用于管理应用程序包。通过此我们来获取应用程序的信息，而且获取的信息都来自AndroidManifest文件）</p>
+<p>利用packageManager调用方法来将Permission放进intent，然后返回这个intent</p>
+<p>startActivityForResult进行数据的传输，当发送了这个广播的时候，我们就会调用权限动态调用申请的界面</p>
+<p>这个是利用GrantPermissionsActivity来完成的，这个界面就是常见的申请权限的界面</p>
+<h3 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h3><ol>
+<li>申明权限</li>
+<li>检查权限（checkSelfPermission）</li>
+<li>申请权限（requestPermissions）</li>
+<li>检查是否申明成功（onRequestPermissionsResult）</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io">Wen Xin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/">https://wenxiy.github.io/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/" title="Activity Intent"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">Activity Intent</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wen Xin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">Android请求权限问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.</span> <span class="toc-text">如何操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B3%E6%98%8E%E6%9D%83%E9%99%90"><span class="toc-number">1.2.1.</span> <span class="toc-text">申明权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%9D%83%E9%99%90"><span class="toc-number">1.2.2.</span> <span class="toc-text">检查权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B3%E8%AF%B7%E6%9D%83%E9%99%90"><span class="toc-number">1.2.3.</span> <span class="toc-text">申请权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%9D%83%E9%99%90%E6%98%AF%E5%90%A6%E7%94%B3%E8%AF%B7%E6%88%90%E5%8A%9F"><span class="toc-number">1.2.4.</span> <span class="toc-text">查询权限是否申请成功</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">源码解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.4.</span> <span class="toc-text">综述</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/" title="Android请求权限问题">Android请求权限问题</a><time datetime="2024-06-23T03:07:35.846Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/" title="Activity Intent">Activity Intent</a><time datetime="2024-06-23T03:07:35.845Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/" title="自定义View">自定义View</a><time datetime="2024-06-23T03:07:35.845Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%9A%E5%B8%AE%E5%8A%A9%E5%88%B0%E8%BE%BE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E6%89%BE%E5%88%B0%E5%BA%94%E7%94%A8%E8%BF%9B%E7%A8%8B/" title="计网运输层">计网运输层</a><time datetime="2024-06-23T03:07:35.843Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2024/06/23/%E5%BC%95%E8%A8%80/" title="Dagger2">Dagger2</a><time datetime="2024-06-23T03:07:35.842Z" title="Created 2024-06-23 11:07:35">2024-06-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Wen Xin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
