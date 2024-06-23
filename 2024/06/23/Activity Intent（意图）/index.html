@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="/">
-  <title>Hello World</title>
+  <title>Theme Kaze</title>
   
     
       <meta 
         property="og:title" 
-        content="Hello World">
+        content="Theme Kaze">
     
     
       <meta 
         property="og:url" 
-        content="https://wenxiy.github.io/2024/06/20/hello-world/index.html">
+        content="https://wenxiy.github.io/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/index.html">
     
     
       <meta 
@@ -42,7 +42,7 @@
         content="article">
       <meta 
         property="og:article:published_time" 
-        content="2024-06-20">
+        content="2024-06-23">
       <meta 
         property="og:article:modified_time" 
         content="2024-06-20">
@@ -311,7 +311,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity-Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89"><span class="toc-text">Activity Intent（意图）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFIntent%EF%BC%9F"><span class="toc-text">什么是Intent？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Intent%EF%BC%9F"><span class="toc-text">为什么要使用Intent？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Intent"><span class="toc-text">如何使用Intent</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F"><span class="toc-text">显式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F"><span class="toc-text">隐式</span></a></li></ol></li></ol>
       </div>
     </article>
   
@@ -352,21 +352,21 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Hello World
+      
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2024-06-20T14:08:30.931Z">
+    <time datetime="2024-06-23T03:07:35.845Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
       </i>
-      <span>2024-06-20</span>
+      <span>2024-06-23</span>
     </time>
     
     
       <span class="dot"></span>
-      <span>75 words</span>
+      <span>1.3k words</span>
     
   </div>
   
@@ -374,19 +374,62 @@
   <div 
     id="section" 
     class="post-content">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="highlight"><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre>
+    <h3 id="Activity-Intent（意图）"><a href="#Activity-Intent（意图）" class="headerlink" title="Activity Intent（意图）"></a>Activity Intent（意图）</h3><ul>
+<li>什么是Intent</li>
+<li>为什么要用Intent</li>
+<li>如何使用Intent</li>
+</ul>
+<h4 id="什么是Intent？"><a href="#什么是Intent？" class="headerlink" title="什么是Intent？"></a>什么是Intent？</h4><p>在Android developer中是这样描绘Intent的：</p>
+<p><code>Intent</code> 是一个消息传递对象，您可以用来从其他应用组件请求操作。尽管 Intent 可以通过多种方式促进组件之间的通信，但其基本用例主要包括以下三个：</p>
+<ul>
+<li><strong>启动 Activity</strong></li>
+<li><strong>启动服务（Service）</strong></li>
+<li><strong>传递广播（BroadCast）</strong></li>
+</ul>
+<p>这里的消息是一种请求操作，当然消息传递不止这一种，而且消息不仅仅指请求。我们有专门的IPC（进程间通信、跨进程通信）机制。</p>
+<p>这里就不深入了，后续会学到。</p>
+<p>那么我们拐回来，再说一下Intent</p>
+<p>Intent是对要执行的操作的抽象描述。它可以与Context、startActivity（Intent）一起使用，以启动安卓应用程序活动</p>
+<p>Intent提供了一种工具，用于在不同应用程序中的代码之间执行后期运行时绑定。它最重要的用途是在启动活动时，它可以被认为是活动之间的粘合剂。它基本上是一个被动的数据结构，包含了对要执行的操作的抽象描述。</p>
+<p>其实我们创建Intent对象的时候，可以查看他的源码，发现了对于Intent其实是实现了两个接口：<strong>Parcelable</strong>和<strong>Cloneable</strong></p>
+<p>第一个接口是实现序列化的接口（将对象转换为可以传输的二进制流(二进制序列)的过程,这样我们就可以通过序列化,转化为可以在网络传输或者保存到本地的流(序列),从而进行传输数据 ）</p>
+<p>第二个是实现克隆，拷贝的接口，以后学习的时候可以看看。</p>
+<p>当然我们只是了解一下这个地方，主要是我们知道他是从序列化然后传输数据来的就可以了。</p>
+<h4 id="为什么要使用Intent？"><a href="#为什么要使用Intent？" class="headerlink" title="为什么要使用Intent？"></a>为什么要使用Intent？</h4><p>这是个好问题，当然是为了通信和传递消息，但是这里没说明白，想要说清楚就要说清楚这个Intent的好处是什么。Intent是一种运行时绑定（runtime binding)机制，它能在程序运行的过程中连接两个不同的组件。通过Intent，程序可以向Android表达某种请求或者意愿，Android会根据意愿的内容选择适当的组件来响应。</p>
+<p>所以这个Google用Intent(意图)来做了一个机制，或者说这个对象。</p>
+<p>当然相应有两种：</p>
+<p>显式和隐式的Intent调用</p>
+<p>我们先不说代码，我们就搞逻辑</p>
+<p>举一个例子：</p>
+<ul>
+<li>我想找一个朋友打羽毛球：对于这句话来说，这就是一个<strong>隐式的Intent</strong> 为什么这么说，”我”是一个ActivityA”朋友”是另外一个未知的ActivityB。要通过”打羽毛球”这个Action去找到这个”朋友”，如果恰好我的朋友小王也想打羽毛球，那么”小王”就是这个具体的ActivityB。</li>
+<li>我想和小王打羽毛球：对于这句话来说这就是一个<strong>显式的Intent</strong>。”我”是ActivityA，”小王”就是ActivityB，此时，你不需要通过Action去匹配</li>
+</ul>
+<p>我们说完了为什么要使用Intent，那么我们说最后一点：如何使用Intent</p>
+<h4 id="如何使用Intent"><a href="#如何使用Intent" class="headerlink" title="如何使用Intent"></a>如何使用Intent</h4><h4 id="显式"><a href="#显式" class="headerlink" title="显式"></a>显式</h4><p>当然，Android权威指南第五章说的很清楚：我们想显式使用一个Intent，那么我们就直接定义一个Intent对象，如果要传数据就调用方法，这个Intent对象只要显式的申明想要去的Activity就可以了。</p>
+<pre class="highlight"><span class="line">bt.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void onClick(View view) &#123;</span><br><span class="line">               Intent intent1 = new Intent(MainActivity.this,secondActivity.class);</span><br><span class="line">               startActivity(intent1);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="highlight"><span class="line">$ hexo server</span><br></pre>
+<p>那么如何传数据呢？</p>
+<pre class="highlight"><span class="line">intent.putExtra(&quot;data&quot;,&quot;this is data&quot;);</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="highlight"><span class="line">$ hexo generate</span><br></pre>
+<p>在接受方：</p>
+<pre class="highlight"><span class="line">Intent intent = getIntent();</span><br><span class="line">String data = intent.getStringExtra(&quot;data&quot;);</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="highlight"><span class="line">$ hexo deploy</span><br></pre>
+<p>我们这里还要说一个方法： startActivityForResult</p>
+<p>我们前面一直说的是startActivity，只要调用了startActivity就能把我第一个Activity的数据传过去</p>
+<p>而startActivityForResult是什么意思呢？</p>
+<p>看名字就是知道，当我的数据传过去了以后，我们要收一个返回值出来</p>
+<pre class="highlight"><span class="line">startActivityForResult(intent,1);//第二个参数是请求码</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>那返回值在哪？</p>
+<p>其实在第一个Activity中还要重写一个方法：</p>
+<pre class="highlight"><span class="line">@Override</span><br><span class="line">   protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</span><br><span class="line">       super.onActivityResult(requestCode, resultCode, data);</span><br><span class="line">       switch (requestCode)&#123;</span><br><span class="line">           case 1:</span><br><span class="line">               if (resultCode == 4)&#123;</span><br><span class="line">                   Log.i(&quot;info&quot;,data.getStringExtra(&quot;data&quot;));</span><br><span class="line">                   tv.setText(data.getStringExtra(&quot;data&quot;));</span><br><span class="line">               &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre>
+
+<p>那么我们来看看第二个Activity</p>
+<pre class="highlight"><span class="line">bt.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public void onClick(View view) &#123;</span><br><span class="line">               Intent intent = new Intent();</span><br><span class="line">               intent.putExtra(&quot;data&quot;,&quot;second返回的数据&quot;);</span><br><span class="line">               setResult(4,intent);//返回码与Intent</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre>
+
+<h4 id="隐式"><a href="#隐式" class="headerlink" title="隐式"></a>隐式</h4><p>虽然大家没有学，但是至少要提一下，大家以后可能会用到。如果想要具体的先学会使用，可以看Android developer或者在权威指南的15章</p>
+<p>隐式其实就是不是具体指明我的Activity，而是指明我Activity的某些特性，系统去寻找满足特性的Activity，因此就能传送数据，可以这样想，就是我的Intent是可以发送到多个Activity。</p>
 
   </div>
   <div>
@@ -406,8 +449,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="https://wenxiy.github.io/2024/06/20/hello-world/">
-            https://wenxiy.github.io/2024/06/20/hello-world/
+            href="https://wenxiy.github.io/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/">
+            https://wenxiy.github.io/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -419,7 +462,7 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/2024/06/23/Csapp%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" 
+        href="/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
@@ -429,6 +472,18 @@
       </a>
     </div>
   
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">Next</div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
   
 </div>
 
@@ -441,7 +496,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity-Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89"><span class="toc-text">Activity Intent（意图）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFIntent%EF%BC%9F"><span class="toc-text">什么是Intent？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Intent%EF%BC%9F"><span class="toc-text">为什么要使用Intent？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Intent"><span class="toc-text">如何使用Intent</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F"><span class="toc-text">显式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F"><span class="toc-text">隐式</span></a></li></ol></li></ol>
 </div>
             </main>
             <aside class="right-column">
@@ -455,7 +510,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity-Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89"><span class="toc-text">Activity Intent（意图）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFIntent%EF%BC%9F"><span class="toc-text">什么是Intent？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Intent%EF%BC%9F"><span class="toc-text">为什么要使用Intent？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Intent"><span class="toc-text">如何使用Intent</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F"><span class="toc-text">显式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F"><span class="toc-text">隐式</span></a></li></ol></li></ol>
     </article>
   
   

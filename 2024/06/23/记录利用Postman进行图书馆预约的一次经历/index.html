@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="Hexo">
+  <link 
+    rel="icon" 
+    href="/">
+  <title>Theme Kaze</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="Theme Kaze">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://wenxiy.github.io/2024/06/23/%E8%AE%B0%E5%BD%95%E5%88%A9%E7%94%A8Postman%E8%BF%9B%E8%A1%8C%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A2%84%E7%BA%A6%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BB%8F%E5%8E%86/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://img.songhn.com/img/Y67gdd.png">
+    
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2024-06-23">
+      <meta 
+        property="og:article:modified_time" 
+        content="2024-06-20">
+      <meta 
+        property="og:article:author" 
+        content="theme-kaze">
+      
+        
+      
+    
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      
+      <span class="navbar-logo-dsc">Theme Kaze</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          Home
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          Archive
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          Tags
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          Categories
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          About
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          Friends
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </button>
+    <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <!-- <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i> -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://img.songhn.com/img/Y67gdd.png" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">theme-kaze</p>
+<p class="author-description">designed by theme-kaze</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>23</span>
+    <span>Posts</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>0</span>
+    <span>Categories</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>0</span>
+    <span>Tags</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>TOC
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E5%88%A9%E7%94%A8Postman%E8%BF%9B%E8%A1%8C%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A2%84%E7%BA%A6%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BB%8F%E5%8E%86"><span class="toc-text">记录利用Postman进行图书馆预约的一次经历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%B0%E8%BF%87%E7%9A%84%E8%B7%AF"><span class="toc-text">走过的路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">cookie的了解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AA%81%E7%84%B6%E5%8F%91%E7%8E%B0%EF%BC%8C%E5%B1%85%E7%84%B6%E6%9C%89%E4%BA%BA%E5%9C%A8%E4%B8%80%E4%B8%A4%E7%A7%92%E5%86%85%E8%BF%9B%E8%A1%8C%E9%A2%84%E7%BA%A6%EF%BC%8C%E6%88%91%E6%9C%AC%E6%9D%A5%E8%A7%89%E5%BE%97%E8%BF%99%E6%A0%B7%E6%89%8B%E5%8A%A8%E5%A4%9F%E5%BF%AB%E7%9A%84%E4%BA%86%EF%BC%8C%E4%BD%86%E8%BF%98%E6%98%AF%E8%A2%AB%E6%8A%A2%E4%BA%86%E4%BD%8D%E7%BD%AE%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E8%A7%89%E5%BE%97%E5%88%A9%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%88%B6%E8%A3%81%E4%BB%96%EF%BC%81"><span class="toc-text">突然发现，居然有人在一两秒内进行预约，我本来觉得这样手动够快的了，但还是被抢了位置，所以我觉得利用程序制裁他！</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD"><span class="toc-text">后续</span></a></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>Categories
+  </div>
+  <div class="categories-list">
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>hot tags
+  </div>
+  <div class="tags-list">
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2024-06-23T03:07:35.833Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2024-06-23</span>
+    </time>
+    
+    
+      <span class="dot"></span>
+      <span>1.5k words</span>
+    
+  </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h3 id="记录利用Postman进行图书馆预约的一次经历"><a href="#记录利用Postman进行图书馆预约的一次经历" class="headerlink" title="记录利用Postman进行图书馆预约的一次经历"></a>记录利用Postman进行图书馆预约的一次经历</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p> 因为俺们学校图书馆是预约制，头天晚上18点能预约第二天的位置，我在考研的时候预约了一个位置，结果下学期来的时候发现一直有人卡点预约位置，我又不能说我做了一个学期就是我的位置，所以萌生了想要利用软件来进行预约的想法</p>
+<h4 id="走过的路"><a href="#走过的路" class="headerlink" title="走过的路"></a>走过的路</h4><p> 首先我想到的是用IDEA来写代码，写一个爬虫，发送网络请求然后返回数据即可，最后我发现我不太懂Maven，就一直再看这方面的东西，但关键是第二天马上就要预约，所以我没有办法继续去学习下来，其实这种办法是最好的，最自动化的。</p>
+<p> 后来我又想到写一个Android程序进行预约，直接用retrofit来进行预约就可以了，然后发现我的电脑重装了系统，就找不到Android studio，下载又很慢，如果用android虽然麻烦点，但好歹都是学过的，重新看看自己的代码就捡回来了。就本来打算写一个Button然后点一下发送Http请求，请求就直接完事，以后就直接拿手机预约图书馆就好，但发现很困难去再配置环境安装Android studio，所以我就放弃了。</p>
+<h4 id="cookie的了解"><a href="#cookie的了解" class="headerlink" title="cookie的了解"></a>cookie的了解</h4><p> 本身觉得自己了解这个网络请求机制的不够，所以我就想先去了解一下，用chorme开发者工具先看看网页发送的过程，然后用Postman模拟一下，模拟模拟这我就想到了，最简单不是就可以直接去用Postman去发送数据。</p>
+<p> 在观察的过程中，我首先是登录图书馆系统，在登陆前按出f12看开发者工具<img src="https://s1.ax1x.com/2022/03/15/bxVVII.png" alt="image-20220315182636488" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s1.ax1x.com/2022/03/15/bxVVII.png" class="lozad post-image"></p>
+<p>然后我就看到了login的网络请求，点进去是它发送的很多东西，然后我就扒下了这个网址，也就是请求登录的网址。然后我进行预约，看到了reserve相关的请求，我就扒下来放在了postman里</p>
+<p><img src="https://s1.ax1x.com/2022/03/15/bxVnRf.png" alt="image-20220315183416458" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s1.ax1x.com/2022/03/15/bxVnRf.png" class="lozad post-image"></p>
+<p>然后发现每次点send，就会写未登录？我就在想，肯定是我的token或者叫什么cookie没过来，所以它会说未登录。后来经我询问邓哥，我可以手动登录拿到cookie然后把cookie放到这个reserve申请的Headers里的cookie，就相当于带了个门票，拿着门票进门就肯定可以。然后我就一直找cookie在哪，首先是这里<img src="https://s1.ax1x.com/2022/03/15/bxVFqH.png" alt="image-20220315183149731" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s1.ax1x.com/2022/03/15/bxVFqH.png" class="lozad post-image"></p>
+<p>但其实根本不行，问了好几次才发现是这个cookie是不完整的，没法去验证：我是我 。那我只能再去找</p>
+<p><img src="https://s1.ax1x.com/2022/03/15/bxV9xO.png" alt="image-20220315183326149" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s1.ax1x.com/2022/03/15/bxV9xO.png" class="lozad post-image"></p>
+<p>我以为是上面这个，结果这个也是不完整的。所以我就再问了问邓哥，邓哥给我发了张截图，意思是这样的：<strong>我在登录的同时，也请求了很多页面或者其他的数据，但是请求这些数据是需要cookie的，所以发送的get请求中一定会有完整的cookie</strong>。</p>
+<p>我恍然大悟，我就在get中找到了真正的cookie</p>
+<p><img src="https://s1.ax1x.com/2022/03/15/bxEvI1.png" alt="image-20220315183816576" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s1.ax1x.com/2022/03/15/bxEvI1.png" class="lozad post-image"></p>
+<p>我现在的任务就是确定预约参数了！只要确定了预约参数，再加上cookie就可以了！</p>
+<p>我发现其他的参数都很好理解：时间 响应时间等等，唯独这个</p>
+<p><img src="https://s1.ax1x.com/2022/03/15/bxEXZ9.png" alt="image-20220315183933007" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s1.ax1x.com/2022/03/15/bxEXZ9.png" class="lozad post-image"></p>
+<p>所以我猜测是桌号，只要知道了桌号就能进行预约。</p>
+<p>所以我通过预约了一个没人的桌子拿到了桌号的规律：</p>
+<p><img src="https://s1.ax1x.com/2022/03/15/bxE45q.png" alt="image-20220315184122981" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s1.ax1x.com/2022/03/15/bxE45q.png" class="lozad post-image"></p>
+<p>括号里就是现实的桌号，而136几则是参数</p>
+<p>所以这样就大功告成了！</p>
+<p>——————————————分割线——————————————————————</p>
+<h4 id="突然发现，居然有人在一两秒内进行预约，我本来觉得这样手动够快的了，但还是被抢了位置，所以我觉得利用程序制裁他！"><a href="#突然发现，居然有人在一两秒内进行预约，我本来觉得这样手动够快的了，但还是被抢了位置，所以我觉得利用程序制裁他！" class="headerlink" title="突然发现，居然有人在一两秒内进行预约，我本来觉得这样手动够快的了，但还是被抢了位置，所以我觉得利用程序制裁他！"></a>突然发现，居然有人在一两秒内进行预约，我本来觉得这样手动够快的了，但还是被抢了位置，所以我觉得利用程序制裁他！</h4><h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><p>为了先了解清楚，我想到两种办法，一是先Post拿到cookie，在Get请求发送，二是还是手动拿到cookie，然后自动发送，误差大概在ms量级。</p>
+<p>该说不说，整！首先在网上搜索利用Java发送请求的框架或者maven库，找到了这个还可以的HttpURLConnection,它可以set数据报，然后发送出去。</p>
+<pre class="highlight"><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.net.HttpURLConnection;</span><br><span class="line">import java.net.URL;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line">import java.util.Timer;</span><br><span class="line">import java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line">public class test &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            clienttest();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void clienttest() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            /**</span><br><span class="line">             * 检查       时间        桌号！</span><br><span class="line">             */</span><br><span class="line">            String path = &quot;http://kjyy.ccnu.edu.cn/ClientWeb/pro/ajax/reserve.aspx?dialogid=&amp;dev_id=100671332&amp;lab_id=&amp;kind_id=&amp;room_id=&amp;type=dev&amp;prop=&amp;test_id=&amp;term=&amp;Vnumber=&amp;classkind=&amp;test_name=&amp;start=2022-04-2+8:30&amp;end=2022-04-2+22:00&amp;start_time=2100&amp;end_time=2200&amp;up_file=&amp;memo=&amp;act=set_resv&amp;_=1647334311451&quot;;</span><br><span class="line">            URL url = new URL(path);</span><br><span class="line">            HttpURLConnection con = (HttpURLConnection) url.openConnection();</span><br><span class="line">            con.setRequestMethod(&quot;GET&quot;);</span><br><span class="line">        /*con.setRequestProperty(&quot;Content-Type&quot;,</span><br><span class="line">                &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">        con.setRequestProperty(&quot;Content-Length&quot;,</span><br><span class="line">                String.valueOf(path.length()));*/</span><br><span class="line">            con.setRequestProperty(</span><br><span class="line">                    &quot;User-Agent&quot;,</span><br><span class="line">                    &quot;Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.104 Safari/537.36&quot;);</span><br><span class="line">            /**</span><br><span class="line">             * 在这里仔细检查一下cookie，填入cookie</span><br><span class="line">             */</span><br><span class="line">            //TimeUnit.SECONDS.sleep(3);</span><br><span class="line">            con.setRequestProperty(&quot;Cookie&quot;, &quot;ASP.NET_SessionId=bcfblsndu2nfxejbvnoufmfv; _d_id=47fa0a225bba4d0b390f21eb168c49&quot;);</span><br><span class="line">            while (true) &#123;</span><br><span class="line">                con.connect();</span><br><span class="line">                Scanner scanner = new Scanner(con.getInputStream(), &quot;UTF-8&quot;);</span><br><span class="line">                String text = scanner.useDelimiter(&quot;\\A&quot;).next();</span><br><span class="line">                System.out.println(text);</span><br><span class="line">                scanner.close();</span><br><span class="line">               // System.out.println(con.getInputStream());</span><br><span class="line">//                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));</span><br><span class="line">//                String line;</span><br><span class="line">//                StringBuilder sb = new StringBuilder();</span><br><span class="line">//                while ((line = br.readLine()) != null) &#123;// 循环读取流</span><br><span class="line">//                    sb.append(line);</span><br><span class="line">//                &#125;</span><br><span class="line">//</span><br><span class="line">//                System.out.println(sb);</span><br><span class="line">            &#125;</span><br><span class="line">            //if (con.getResponseCode() == 200) &#123;</span><br><span class="line"></span><br><span class="line">//                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));</span><br><span class="line">//                String line;</span><br><span class="line">//                StringBuilder sb = new StringBuilder();</span><br><span class="line">//                while ((line = br.readLine()) != null) &#123;// 循环读取流</span><br><span class="line">//                    sb.append(line);</span><br><span class="line">//                &#125;</span><br><span class="line">//                br.close();// 关闭流</span><br><span class="line">//                System.out.println(sb);</span><br><span class="line">//          //  &#125; else &#123;</span><br><span class="line">//             //   System.out.println(con.getResponseCode());</span><br><span class="line">//        //    &#125;</span><br><span class="line">            //   con.disconnect();// 断开连接</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">            System.out.println(e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+
+<p>大功告成！实现自由预约~</p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            theme-kaze
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://wenxiy.github.io/2024/06/23/%E8%AE%B0%E5%BD%95%E5%88%A9%E7%94%A8Postman%E8%BF%9B%E8%A1%8C%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A2%84%E7%BA%A6%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BB%8F%E5%8E%86/">
+            https://wenxiy.github.io/2024/06/23/%E8%AE%B0%E5%BD%95%E5%88%A9%E7%94%A8Postman%E8%BF%9B%E8%A1%8C%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A2%84%E7%BA%A6%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BB%8F%E5%8E%86/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/2024/06/23/%E6%8A%80%E6%9C%AF%E5%9B%9E%E9%A1%BE/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">Prev</div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2024/06/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">Next</div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>TOC
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E5%88%A9%E7%94%A8Postman%E8%BF%9B%E8%A1%8C%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A2%84%E7%BA%A6%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BB%8F%E5%8E%86"><span class="toc-text">记录利用Postman进行图书馆预约的一次经历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%B0%E8%BF%87%E7%9A%84%E8%B7%AF"><span class="toc-text">走过的路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">cookie的了解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AA%81%E7%84%B6%E5%8F%91%E7%8E%B0%EF%BC%8C%E5%B1%85%E7%84%B6%E6%9C%89%E4%BA%BA%E5%9C%A8%E4%B8%80%E4%B8%A4%E7%A7%92%E5%86%85%E8%BF%9B%E8%A1%8C%E9%A2%84%E7%BA%A6%EF%BC%8C%E6%88%91%E6%9C%AC%E6%9D%A5%E8%A7%89%E5%BE%97%E8%BF%99%E6%A0%B7%E6%89%8B%E5%8A%A8%E5%A4%9F%E5%BF%AB%E7%9A%84%E4%BA%86%EF%BC%8C%E4%BD%86%E8%BF%98%E6%98%AF%E8%A2%AB%E6%8A%A2%E4%BA%86%E4%BD%8D%E7%BD%AE%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E8%A7%89%E5%BE%97%E5%88%A9%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%88%B6%E8%A3%81%E4%BB%96%EF%BC%81"><span class="toc-text">突然发现，居然有人在一两秒内进行预约，我本来觉得这样手动够快的了，但还是被抢了位置，所以我觉得利用程序制裁他！</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD"><span class="toc-text">后续</span></a></li></ol></li></ol>
+</div>
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>TOC
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E5%88%A9%E7%94%A8Postman%E8%BF%9B%E8%A1%8C%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A2%84%E7%BA%A6%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BB%8F%E5%8E%86"><span class="toc-text">记录利用Postman进行图书馆预约的一次经历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%B0%E8%BF%87%E7%9A%84%E8%B7%AF"><span class="toc-text">走过的路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">cookie的了解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AA%81%E7%84%B6%E5%8F%91%E7%8E%B0%EF%BC%8C%E5%B1%85%E7%84%B6%E6%9C%89%E4%BA%BA%E5%9C%A8%E4%B8%80%E4%B8%A4%E7%A7%92%E5%86%85%E8%BF%9B%E8%A1%8C%E9%A2%84%E7%BA%A6%EF%BC%8C%E6%88%91%E6%9C%AC%E6%9D%A5%E8%A7%89%E5%BE%97%E8%BF%99%E6%A0%B7%E6%89%8B%E5%8A%A8%E5%A4%9F%E5%BF%AB%E7%9A%84%E4%BA%86%EF%BC%8C%E4%BD%86%E8%BF%98%E6%98%AF%E8%A2%AB%E6%8A%A2%E4%BA%86%E4%BD%8D%E7%BD%AE%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E8%A7%89%E5%BE%97%E5%88%A9%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%88%B6%E8%A3%81%E4%BB%96%EF%BC%81"><span class="toc-text">突然发现，居然有人在一两秒内进行预约，我本来觉得这样手动够快的了，但还是被抢了位置，所以我觉得利用程序制裁他！</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD"><span class="toc-text">后续</span></a></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>Recent Posts
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-06-23</div>
+        <a href="/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-06-23</div>
+        <a href="/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-06-23</div>
+        <a href="/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-06-23</div>
+        <a href="/2024/06/23/%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%9A%E5%B8%AE%E5%8A%A9%E5%88%B0%E8%BE%BE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E6%89%BE%E5%88%B0%E5%BA%94%E7%94%A8%E8%BF%9B%E7%A8%8B/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020
+          
+          
+                - 
+                2024
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Theme Kaze
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+    
+  </body>
+</html>

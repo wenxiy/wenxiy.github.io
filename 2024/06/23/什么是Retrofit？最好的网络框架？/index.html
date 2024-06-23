@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="Hexo">
+  <link 
+    rel="icon" 
+    href="/">
+  <title>Theme Kaze</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="Theme Kaze">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://wenxiy.github.io/2024/06/23/%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%E6%9C%80%E5%A5%BD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%EF%BC%9F/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://img.songhn.com/img/Y67gdd.png">
+    
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2024-06-23">
+      <meta 
+        property="og:article:modified_time" 
+        content="2024-06-20">
+      <meta 
+        property="og:article:author" 
+        content="theme-kaze">
+      
+        
+      
+    
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      
+      <span class="navbar-logo-dsc">Theme Kaze</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          Home
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          Archive
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          Tags
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          Categories
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          About
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          Friends
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </button>
+    <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <!-- <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i> -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://img.songhn.com/img/Y67gdd.png" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">theme-kaze</p>
+<p class="author-description">designed by theme-kaze</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>23</span>
+    <span>Posts</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>0</span>
+    <span>Categories</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>0</span>
+    <span>Tags</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>TOC
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%E6%9C%80%E5%A5%BD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%EF%BC%9F"><span class="toc-text">什么是Retrofit？最好的网络框架？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%EF%BC%9F"><span class="toc-text">什么是网络请求？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%EF%BC%88Retrofit2-0%EF%BC%89"><span class="toc-text">什么是Retrofit？（Retrofit2.0）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Retrofit%EF%BC%9F%EF%BC%88Java%EF%BC%89"><span class="toc-text">如何使用Retrofit？（Java）</span></a></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>Categories
+  </div>
+  <div class="categories-list">
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>hot tags
+  </div>
+  <div class="tags-list">
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2024-06-23T03:07:35.837Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2024-06-23</span>
+    </time>
+    
+    
+      <span class="dot"></span>
+      <span>2.1k words</span>
+    
+  </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h3 id="什么是Retrofit？最好的网络框架？"><a href="#什么是Retrofit？最好的网络框架？" class="headerlink" title="什么是Retrofit？最好的网络框架？"></a>什么是Retrofit？最好的网络框架？</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>从我刚开始Android开发的时候，我总会羡慕大牛们写的APP都是网络请求数据相关的，总觉得这个网络请求是最难的部分，当我学完JAVA和Kotlin的时候，再回头看网络，其实都是由输入输出流来放入Socket套接字进行UDP连接。但是对于我刚开始学的时候，总是需要不停地看Retrofit的介绍和博客，总是很复杂，感觉没有最明确的告诉你如何去使用，于是一年多使用了几次Retrofit的时候，想要自己去写一篇博客，以供自己回顾。</p>
+<p>（注：前面可以只看什么是网络请求和如何利用Java使用Retrofit，源码解析及以后的可以以后在写）</p>
+<h4 id="什么是网络请求？"><a href="#什么是网络请求？" class="headerlink" title="什么是网络请求？"></a>什么是网络请求？</h4><p>当我们看一些牛人的代码的时候，我们总能看到一些仓库数据类叫什么RemoteRepo,LocalRepo 什么意思？就是说我的APP数据来源于两个地方：有可能是我请求服务器时候拿来的数据（个人信息等等），有可能是我本地存储的数据（历史记录等等），在互联网中请求不属于本地服务器的数据，就是网络请求。在网络请求中，我们分为了几个步骤：</p>
+<ul>
+<li>配置网络请求参数（Build request）</li>
+<li>创建网络请求对象 (Call requesut)</li>
+<li>发送网络请求 (Call request)<br>解析数据 (Converter(转换器))</li>
+<li>返回数据给对象</li>
+<li>拿到对象UI展示</li>
+</ul>
+<p>我们把网络请求分为这几步，具体其实分的很细，接下来我们将具体怎么做的时候，会来分别的说清楚这几步。</p>
+<h4 id="什么是Retrofit？（Retrofit2-0）"><a href="#什么是Retrofit？（Retrofit2-0）" class="headerlink" title="什么是Retrofit？（Retrofit2.0）"></a>什么是Retrofit？（Retrofit2.0）</h4><p>每当我看很多博客的时候，对于Retrofit的介绍这里，总是很多很多看不懂的东西。在这里，如果对于一个框架进行一个介绍，那么那就是一个API，一套封装好的库来进行开发，但是对于Retrofit来说，这个封装是针对另一个框架Okhttp的封装，所以对于网络请求来说，就是Okhttp在做，我们只是用封装的封装罢了。</p>
+<p>那么Retrofit怎么去做网络处理请求呢？</p>
+<ol>
+<li><p>Build request</p>
+<p>通过<strong>注解</strong>的形式来进行网络请求配置请求参数</p>
+</li>
+<li><p>Call request</p>
+<p>通过<strong>动态代理</strong>创建网络请求的执行器和适配器并且发送网络请求</p>
+</li>
+<li><p>Converter</p>
+<p>服务器返回数据以后去利用<strong>转换器</strong>来转换接收的数据</p>
+</li>
+<li><p>Executor</p>
+<p>切换线程，处理数据</p>
+</li>
+</ol>
+<p>这里我想说一下为什么要切换线程？对于Android来说，我们总是期待用户进行点击或者一些活动的时候APP给予最快速率的响应，但是在我们系统来说有很多耗时的操作，我们为了加快响应用户的行为而对数据的加载切换到子线程中进行，而在主线程（UI、Activity、Fragment）来进行呈现数据给用户。(具体见引用中对于多线程任务的描述)</p>
+<p>总结：Retrofit经过几年的发展，以独特方便的注解方式、高效性能、设计风格广受开发者的好评，成为近几年来最受欢迎的网络请求框架。</p>
+<h4 id="如何使用Retrofit？（Java）"><a href="#如何使用Retrofit？（Java）" class="headerlink" title="如何使用Retrofit？（Java）"></a>如何使用Retrofit？（Java）</h4><p>项目地址：</p>
+<p>对于一个项目而言，首先要明确你是有一个数据类，有一个封装着网络配置参数的类，在MainActivity中进行切换线程的网络请求操作和（无优化，后面会写如何优化）</p>
+<ul>
+<li>如何去写数据类？</li>
+</ul>
+<p>首先要明确，后端给你的api文档大概是这样的</p>
+<p><img src="https://s3.ax1x.com/2020/12/20/raxJCn.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s3.ax1x.com/2020/12/20/raxJCn.png" class="lozad post-image"></p>
+<p>其他的也是大同小异，如果给你.yml文件在这个网站打开也是这个样</p>
+<p>看不懂？不要紧，我们一步一步来</p>
+<p>如果我们想要请求一个User.login的数据，如何创建数据类呢？</p>
+<p>首先我们应该查看api文档中的Model中的你需要请求数据的Json格式数据</p>
+<p><img src="https://s3.ax1x.com/2020/12/20/rdSyX6.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s3.ax1x.com/2020/12/20/rdSyX6.png" class="lozad post-image"></p>
+<p>也就是这里的</p>
+<pre class="highlight"><span class="line">id	integer($int64)</span><br><span class="line">username	string</span><br><span class="line">firstName	string</span><br><span class="line">lastName	string</span><br><span class="line">email	string</span><br><span class="line">password	string</span><br><span class="line">phone	string</span><br><span class="line">userStatus	integer($int32)</span><br><span class="line">User Status</span><br></pre>
+
+<p>在Android Studio中利用一个插件来自动生产我们的数据类GsonFormaster(使用方法推荐视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1WJ411X7Jt?p=5%EF%BC%8810%E5%88%86%E9%92%9F%E5%B0%B1%E8%83%BD%E5%AE%8C%E6%88%90%EF%BC%89">https://www.bilibili.com/video/BV1WJ411X7Jt?p=5（10分钟就能完成）</a>)</p>
+<p>最后你就可以得到一个类似与这样的类：</p>
+<pre class="highlight"><span class="line">package com.example.film_review.firstpage.attention;</span><br><span class="line"></span><br><span class="line">public class AttentionItemData &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * User_id : string</span><br><span class="line">     * Name : string</span><br><span class="line">     * User_picture : string</span><br><span class="line">     * Review_id : 0</span><br><span class="line">     * Title : string</span><br><span class="line">     * Content : string</span><br><span class="line">     * Time : string</span><br><span class="line">     * Tag : string</span><br><span class="line">     * Picture : string</span><br><span class="line">     * Comment_sum : 0</span><br><span class="line">     * Like_sum : 0</span><br><span class="line">     */</span><br><span class="line"></span><br><span class="line">    private String User_id;</span><br><span class="line">    private String Name;</span><br><span class="line">    private String User_picture;</span><br><span class="line">    private int Review_id;</span><br><span class="line">    private String Title;</span><br><span class="line">    private String Content;</span><br><span class="line">    private String Time;</span><br><span class="line">    private String Tag;</span><br><span class="line">    private String Picture;</span><br><span class="line">    private int Comment_sum;</span><br><span class="line">    private int Like_sum;</span><br><span class="line"></span><br><span class="line">    public String getUser_id() &#123;</span><br><span class="line">        return User_id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUser_id(String User_id) &#123;</span><br><span class="line">        this.User_id = User_id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return Name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String Name) &#123;</span><br><span class="line">        this.Name = Name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUser_picture() &#123;</span><br><span class="line">        return User_picture;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUser_picture(String User_picture) &#123;</span><br><span class="line">        this.User_picture = User_picture;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getReview_id() &#123;</span><br><span class="line">        return Review_id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setReview_id(int Review_id) &#123;</span><br><span class="line">        this.Review_id = Review_id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getTitle() &#123;</span><br><span class="line">        return Title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setTitle(String Title) &#123;</span><br><span class="line">        this.Title = Title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getContent() &#123;</span><br><span class="line">        return Content;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setContent(String Content) &#123;</span><br><span class="line">        this.Content = Content;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getTime() &#123;</span><br><span class="line">        return Time;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setTime(String Time) &#123;</span><br><span class="line">        this.Time = Time;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getTag() &#123;</span><br><span class="line">        return Tag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setTag(String Tag) &#123;</span><br><span class="line">        this.Tag = Tag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getPicture() &#123;</span><br><span class="line">        return Picture;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPicture(String Picture) &#123;</span><br><span class="line">        this.Picture = Picture;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getComment_sum() &#123;</span><br><span class="line">        return Comment_sum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setComment_sum(int Comment_sum) &#123;</span><br><span class="line">        this.Comment_sum = Comment_sum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getLike_sum() &#123;</span><br><span class="line">        return Like_sum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setLike_sum(int Like_sum) &#123;</span><br><span class="line">        this.Like_sum = Like_sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+
+<p>这个类里面有什么？有一些参数，最后接收的网络请求数据封装在这个类里面，自动的有一些get与set方法</p>
+<p>好了在正式开始Retrofit2.0之前，我们首先要了解一下什么是异步通信</p>
+<p>Retrofit2.0采用的是异步通信的方法来进行网络请求。那有人要问了，这个异步和我有什么关系？？我凭什么要了解这个事情，因为了解异步有助于去写一个更好的网络请求框架。</p>
+<p>异步通信用数字逻辑的话来说就是没有使用同一个时钟源，也就是说网络请求分为什么？发送与接收。一般怎么做？客户端先发送网络请求，等发完了以后进行接收，这就是同步，也就是有先后顺序。而异步是我接收与发送是分开的，我这边接收是一个整体，发送是另一个整体，在发送之前我就已经准备好了接收，随时准备接收，而发送是可以晚一点进行的。</p>
+<p>所以我们现在搞清楚了以后，来正式的写Retfoit</p>
+<ol>
+<li>实例化Retrofit对象，创建网络请求接口实例、配置参数(Bulid request)</li>
+</ol>
+<pre class="highlight"><span class="line">Retrofit retrofit = new Retrofit.Builder()</span><br><span class="line">                                .baseUrl(&quot;www.baidu.com&quot;)</span><br></pre>
+
+<ol>
+<li><strong>异步</strong>的准备好接收数据(Converter)</li>
+</ol>
+<pre class="highlight"><span class="line">Retrofit retrofit = new Retrofit.Builder()</span><br><span class="line">                    .baseUrl(&quot;www.baidu.com&quot;)</span><br><span class="line">        .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">                       .build();</span><br></pre>
+
+<p>猜猜下一步要干什么？是发送数据！我们来这样想，Retrofit首先先配置好，然后创建好接收数据的客户端，最后来进行发送数据。</p>
+<ol>
+<li>创建Retrofit<strong>接口</strong>！！！！前面的Retrofit是一个Class，而后面的是一个接口！</li>
+</ol>
+<pre class="highlight"><span class="line">public interface RetrofitAPI &#123;</span><br><span class="line">    @GET(&quot;api/v1/grounds/&#123;user_id&#125;&quot;)</span><br><span class="line">    Call&lt;List&lt;AttentionItemData&gt;&gt; getAttention(@Header(&quot;token&quot;) String token, @Path(&quot;user_id&quot;) String user_id);</span><br><span class="line">&#125;</span><br><span class="line">//在这里说清楚请求资源的方式是GET还是POST还是什么，这里的api/v1/grounds/&#123;user_id&#125;是除了baseurl的url配置信息</span><br><span class="line">//返回数据类型是一个List&lt;类&gt; 最后用这个类封装信息</span><br></pre>
+
+<ol>
+<li>在处理网络请求util类中实现<strong>接口端点</strong>(没有进行实例化对象，就是一个引用)</li>
+</ol>
+<pre class="highlight"><span class="line">RetrofitAPI API = retrofit.create(RetrofitAPI.class);</span><br><span class="line">task.enqueue(new Callback&lt;List&lt;AttentionItemData&gt;&gt;() &#123;//异步发送</span><br><span class="line">            @Override</span><br><span class="line">public void onResponse(Call&lt;List&lt;AttentionItemData&gt;&gt; call, Response&lt;List&lt;AttentionItemData&gt;&gt; response) &#123;</span><br><span class="line">//要处理里的事情，如果处理成功返回的response就是正确处理的List集合类</span><br><span class="line">//一般就是通过一些UI组件来展示response.body();</span><br><span class="line">&#125;</span><br><span class="line">            @Override</span><br><span class="line">public void onFailure(Call&lt;List&lt;AttentionItemData&gt;&gt; call, Throwable t) &#123;</span><br><span class="line">                Log.e(&quot;TAG&quot;, &quot;FAILURE&quot;);</span><br><span class="line">                t.printStackTrace();</span><br><span class="line">               //请求失败的处理结果</span><br><span class="line">            &#125;</span><br><span class="line">&#125;);</span><br><span class="line">    </span><br></pre>
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            theme-kaze
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://wenxiy.github.io/2024/06/23/%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%E6%9C%80%E5%A5%BD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%EF%BC%9F/">
+            https://wenxiy.github.io/2024/06/23/%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%E6%9C%80%E5%A5%BD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%EF%BC%9F/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/2024/06/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">Prev</div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2024/06/23/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E3%80%81%E6%B5%85%E6%8B%B7%E8%B4%9D%E3%80%81%E5%BB%B6%E8%BF%9F%E6%8B%B7%E8%B4%9D/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">Next</div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>TOC
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%E6%9C%80%E5%A5%BD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%EF%BC%9F"><span class="toc-text">什么是Retrofit？最好的网络框架？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%EF%BC%9F"><span class="toc-text">什么是网络请求？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%EF%BC%88Retrofit2-0%EF%BC%89"><span class="toc-text">什么是Retrofit？（Retrofit2.0）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Retrofit%EF%BC%9F%EF%BC%88Java%EF%BC%89"><span class="toc-text">如何使用Retrofit？（Java）</span></a></li></ol></li></ol>
+</div>
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>TOC
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%E6%9C%80%E5%A5%BD%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%EF%BC%9F"><span class="toc-text">什么是Retrofit？最好的网络框架？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%EF%BC%9F"><span class="toc-text">什么是网络请求？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRetrofit%EF%BC%9F%EF%BC%88Retrofit2-0%EF%BC%89"><span class="toc-text">什么是Retrofit？（Retrofit2.0）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Retrofit%EF%BC%9F%EF%BC%88Java%EF%BC%89"><span class="toc-text">如何使用Retrofit？（Java）</span></a></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>Recent Posts
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-06-23</div>
+        <a href="/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-06-23</div>
+        <a href="/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-06-23</div>
+        <a href="/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-06-23</div>
+        <a href="/2024/06/23/%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%9A%E5%B8%AE%E5%8A%A9%E5%88%B0%E8%BE%BE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E6%89%BE%E5%88%B0%E5%BA%94%E7%94%A8%E8%BF%9B%E7%A8%8B/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020
+          
+          
+                - 
+                2024
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Theme Kaze
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+    
+  </body>
+</html>
