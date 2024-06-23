@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="/">
-  <title>Theme Kaze</title>
+  <title>链表题</title>
   
     
       <meta 
         property="og:title" 
-        content="Theme Kaze">
+        content="链表题">
     
     
       <meta 
         property="og:url" 
-        content="https://wenxiy.github.io/2024/06/23/%E6%8A%80%E6%9C%AF%E5%9B%9E%E9%A1%BE/index.html">
+        content="https://wenxiy.github.io/2024/06/23/%E9%93%BE%E8%A1%A8%E9%A2%98/index.html">
     
     
       <meta 
@@ -45,7 +45,7 @@
         content="2024-06-23">
       <meta 
         property="og:article:modified_time" 
-        content="2024-06-20">
+        content="2024-06-23">
       <meta 
         property="og:article:author" 
         content="theme-kaze">
@@ -282,7 +282,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>23</span>
+    <span>21</span>
     <span>Posts</span>
   </a>
   <a 
@@ -311,7 +311,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E5%91%A8%E6%8A%80%E6%9C%AF%E5%9B%9E%E9%A1%BE"><span class="toc-text">一周技术回顾</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Websocket"><span class="toc-text">Websocket</span></a></li></ol>
+
       </div>
     </article>
   
@@ -352,11 +352,11 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      
+      链表题
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2024-06-23T03:07:35.834Z">
+    <time datetime="2024-06-23T03:07:35.840Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
@@ -366,7 +366,7 @@
     
     
       <span class="dot"></span>
-      <span>425 words</span>
+      <span>583 words</span>
     
   </div>
   
@@ -374,9 +374,52 @@
   <div 
     id="section" 
     class="post-content">
-    <h4 id="一周技术回顾"><a href="#一周技术回顾" class="headerlink" title="一周技术回顾"></a>一周技术回顾</h4><p>最近不知道再学什么，想利用周末的时间来总结一下自己一周到底在学什么技术，学什么课程，学到了什么。以后回顾的时候也方便。</p>
-<p>最近主要是做毕业设计，就是一个类似于基于websocket协议的实时绘图系统，当然前台用的是web前端，就学习了Html+Css+Js，总的来说还是学的很快，没有去深究很多细节，Js的语法规则比Java舒服的多，而且要兼容性好很多。其实这个和Android差不多，一开始都是前面写界面，Css调格式，然后Js来控制逻辑。都是先找到控件，设置监听器等等，但主要是看的太少，想短时间入门Vue的项目还是比较困难，在网上找了很多基于绘图的框架，运行了但是看代码还是不是很清楚。然后就是看数据结构，写了几个题，也实现了几段结构完成了小功能，总的来说还是很累感觉这一段时间，不知道如何去继续学习技术，进入了一个疲乏期，Android学习都要比Web前端快乐的多。</p>
-<h4 id="Websocket"><a href="#Websocket" class="headerlink" title="Websocket"></a>Websocket</h4><p>WebSocket主要是一种<strong>TCP</strong>协议,一般的一些TCP协议是半双工的，就是一个接一个发，基本上就是Client发，Serve收，然后WebSocket是全双工的一种长连接，只需要一次建立连接就能一直传输数据，所以一般来进行一种实时的操作（聊天等）以前一直用的是轮询的方式，有了WebSocket提供了很多方便</p>
+    <ul>
+<li><p>奇偶链表：</p>
+<ul>
+<li><p>题目重述：将一个链表的编号奇偶的放在一起，使用原地算法。(不能开辟空间，在原链表操作)</p>
+</li>
+<li><p>难点：如何保持相对顺序的情况下一起移动链表的结点。</p>
+</li>
+<li><p>解决办法：将奇链表放在一个节点里，偶链表放在一个节点里。（定义双指针引用）</p>
+<p>定义一个evenhead链表引用，始终保持&#x3D;even，所以最后就有</p>
+</li>
+</ul>
+<pre class="highlight"><span class="line">ListNode even = head.hext;</span><br><span class="line">ListNode odd  = head;</span><br><span class="line">ListNode evenhead = even;</span><br><span class="line">while(even!==null&amp;&amp;even.next==null)&#123;</span><br><span class="line">    odd.next=even.next;//覆盖偶数节点(第一步)</span><br><span class="line">    odd=odd.next;//让奇数节点往后走一步</span><br><span class="line">  event.next=odd.next;//跳过中间的奇数节点</span><br><span class="line">    event=event.next;//让偶数节点往后走一步</span><br><span class="line">&#125;</span><br><span class="line">odd.next=evenhead;//连接起来</span><br><span class="line">return odd;//伪代码</span><br></pre>
+</li>
+<li><p>分割链表</p>
+<ul>
+<li><p>题目重述：给定一个链表和一个x，将链表元素小于或等于x的放在x的左边，大于x的放在x的右边。</p>
+</li>
+<li><p>难点：移动链表，遍历链表</p>
+</li>
+<li><p>步骤：见下图头插法</p>
+</li>
+<li><p>解决办法：链表的头插法</p>
+<p>（头插法这里我想了很久，为了把这个事情说清楚我们做一个步骤图来说明一下</p>
+<p><img src="https://s1.ax1x.com/2020/07/17/Uyry28.png" alt="img" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://s1.ax1x.com/2020/07/17/Uyry28.png" class="lozad post-image"></p>
+</li>
+</ul>
+</li>
+<li><p>环路检测：</p>
+<ul>
+<li><p>题目重述：返回一个环路链表的开头结点</p>
+</li>
+<li><p>难点：1.快慢指针相遇问题（快指针跑两步，慢指针走一步），2.找入口</p>
+</li>
+<li><p>步骤：1.先找相遇点（有无环）。2.再找入口</p>
+</li>
+<li><p>解决办法：先证明一下相遇的情况，再根据结果进行一个编写。</p>
+<p>相遇了则证明有环，数学证明发现一个从相遇点一步一步走，一个从头一步一步走，再次相遇的时候就是环的入口。所以我们先要找到相遇点、再让其同时一步一步走就可以。</p>
+<pre class="highlight"><span class="line">if(head==null)&#123;</span><br><span class="line">    return head;</span><br><span class="line">&#125;</span><br><span class="line">ListNOde fast=head;</span><br><span class="line">ListNode slow=head;</span><br><span class="line">while(fast!=null)&#123;    </span><br><span class="line">    fast=fast.next.next;</span><br><span class="line">  slow=slow.next;</span><br><span class="line">    if(fast==slow)&#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;//第一次相遇，证明有环</span><br><span class="line">fast=head;</span><br><span class="line">while(fast!=null&amp;&amp;fast.next!=null)&#123;</span><br><span class="line">    fast=fast.next;</span><br><span class="line">    slow=slow.next;</span><br><span class="line">    if(fast==slow)&#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">return fast;</span><br></pre>
+
+<pre class="highlight"><span class="line">//如果没有环我们需要改变一下第一个while里的if的条件</span><br><span class="line">while(fas!=null)&#123;</span><br><span class="line">  if(fast==null||fast.next==null) return null;</span><br><span class="line">  ···</span><br><span class="line">  ···</span><br><span class="line">&#125;</span><br><span class="line">···</span><br><span class="line">···</span><br></pre>
+
+<p>后面的拓展：如果要没有环要选择返回null</p>
+</li>
+</ul>
+</li>
+</ul>
 
   </div>
   <div>
@@ -396,8 +439,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="https://wenxiy.github.io/2024/06/23/%E6%8A%80%E6%9C%AF%E5%9B%9E%E9%A1%BE/">
-            https://wenxiy.github.io/2024/06/23/%E6%8A%80%E6%9C%AF%E5%9B%9E%E9%A1%BE/
+            href="https://wenxiy.github.io/2024/06/23/%E9%93%BE%E8%A1%A8%E9%A2%98/">
+            https://wenxiy.github.io/2024/06/23/%E9%93%BE%E8%A1%A8%E9%A2%98/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -409,11 +452,13 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/2024/06/23/%E8%BF%81%E7%A7%BB%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9D%91/" 
+        href="/2024/06/23/%E5%BC%95%E8%A8%80/" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
           <div class="nav-label">Prev</div>
+          
+            <div class="nav-title">Dagger2 </div>
           
         </div>
       </a>
@@ -422,10 +467,12 @@
   
     <div class="nav-item-next">
       <a 
-        href="/2024/06/23/%E8%AE%B0%E5%BD%95%E5%88%A9%E7%94%A8Postman%E8%BF%9B%E8%A1%8C%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A2%84%E7%BA%A6%E7%9A%84%E4%B8%80%E6%AC%A1%E7%BB%8F%E5%8E%86/" 
+        href="/2024/06/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF/" 
         class="nav-link">
         <div>
           <div class="nav-label">Next</div>
+          
+            <div class="nav-title">数据库概览 </div>
           
         </div>
         <i class="iconfont icon-right nav-next-icon"></i>
@@ -443,7 +490,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E5%91%A8%E6%8A%80%E6%9C%AF%E5%9B%9E%E9%A1%BE"><span class="toc-text">一周技术回顾</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Websocket"><span class="toc-text">Websocket</span></a></li></ol>
+
 </div>
             </main>
             <aside class="right-column">
@@ -457,7 +504,7 @@
     style="padding-right: 2px;">
   </i>TOC
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E5%91%A8%E6%8A%80%E6%9C%AF%E5%9B%9E%E9%A1%BE"><span class="toc-text">一周技术回顾</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Websocket"><span class="toc-text">Websocket</span></a></li></ol>
+
     </article>
   
   
@@ -473,22 +520,22 @@
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2024-06-23</div>
-        <a href="/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/"><div class="recent-posts-item-content"></div></a>
+        <a href="/2024/06/23/Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/"><div class="recent-posts-item-content">Android请求权限问题</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2024-06-23</div>
-        <a href="/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/"><div class="recent-posts-item-content"></div></a>
+        <a href="/2024/06/23/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/"><div class="recent-posts-item-content">Activity Intent</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2024-06-23</div>
-        <a href="/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/"><div class="recent-posts-item-content"></div></a>
+        <a href="/2024/06/23/%E8%87%AA%E5%AE%9A%E4%B9%89view/"><div class="recent-posts-item-content">自定义View</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2024-06-23</div>
-        <a href="/2024/06/23/%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%9A%E5%B8%AE%E5%8A%A9%E5%88%B0%E8%BE%BE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E6%89%BE%E5%88%B0%E5%BA%94%E7%94%A8%E8%BF%9B%E7%A8%8B/"><div class="recent-posts-item-content"></div></a>
+        <a href="/2024/06/23/%E8%BF%90%E8%BE%93%E5%B1%82%EF%BC%9A%E5%B8%AE%E5%8A%A9%E5%88%B0%E8%BE%BE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E6%89%BE%E5%88%B0%E5%BA%94%E7%94%A8%E8%BF%9B%E7%A8%8B/"><div class="recent-posts-item-content">计网运输层</div></a>
       </div>
     
   </div>
