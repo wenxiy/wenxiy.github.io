@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java的GC机制 | Hexo</title><meta name="author" content="Wen Xin"><meta name="copyright" content="Wen Xin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Activity生命周期与启动Activity作为一个Android的基础知识，必须要熟悉的掌握它的各个阶段，才能去进行很好的开发。我希望在此篇自我学习的文章，不断反复重复强化Activity的基础知识。 概览Activity的生命周期主要是分为几个阶段： (1)onCreate():Activity正在创建，加载资源如界面布局，初始化等。 (2)onStart()：Activity正在启动，到达">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java的GC机制">
+<meta property="og:url" content="https://wenxiy.github.io/2023/10/05/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Activity生命周期与启动Activity作为一个Android的基础知识，必须要熟悉的掌握它的各个阶段，才能去进行很好的开发。我希望在此篇自我学习的文章，不断反复重复强化Activity的基础知识。 概览Activity的生命周期主要是分为几个阶段： (1)onCreate():Activity正在创建，加载资源如界面布局，初始化等。 (2)onStart()：Activity正在启动，到达">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wenxiy.github.io/img/avatar.png">
+<meta property="article:published_time" content="2023-10-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-30T12:29:18.014Z">
+<meta property="article:author" content="Wen Xin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wenxiy.github.io/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wenxiy.github.io/2023/10/05/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java的GC机制',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-30 20:29:18'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Hexo"><span class="site-name">Hexo</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Java的GC机制</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-10-04T16:00:00.000Z" title="Created 2023-10-05 00:00:00">2023-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-06-30T12:29:18.014Z" title="Updated 2024-06-30 20:29:18">2024-06-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Android/">Android</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java的GC机制"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h3 id="Activity生命周期与启动"><a href="#Activity生命周期与启动" class="headerlink" title="Activity生命周期与启动"></a>Activity生命周期与启动</h3><p>Activity作为一个Android的基础知识，必须要熟悉的掌握它的各个阶段，才能去进行很好的开发。我希望在此篇自我学习的文章，不断反复重复强化Activity的基础知识。</p>
+<h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><p>Activity的生命周期主要是分为几个阶段：</p>
+<p>(1)onCreate():Activity正在创建，加载资源如界面布局，初始化等。</p>
+<p>(2)onStart()：Activity正在启动，到达<strong>后台</strong>，Activity<strong>可见，但不可与用户交互（用户看不到）</strong></p>
+<p>(3)onResume()：Activity已经<strong>可见，在前台开始活动</strong></p>
+<p>(4)onPause()：Activity正在**停止，紧接着onStop()就会被调用，此时快速回到Activity时，onResume会调用。位于后台 **</p>
+<p>(5)onStop()：Activity即将停止，<strong>在此时返回原Activity将通过onRestart()到达onStart()</strong></p>
+<p>(6)onDestroy()：Activity即将被销毁，最后一站，重量级的回收工作和资源释放会在这里实现</p>
+<p>(7)onRestart()：Activity从onStop()重新返回onStart()</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pkcd6Yt"><img src="https://s21.ax1x.com/2024/06/30/pkcd6Yt.png" alt="pkcd6Yt.png"></a></p>
+<p><strong>onStop()和onStart()是随着用户操作或者设备屏幕的点亮和熄灭，所以被调用多次</strong></p>
+<p><strong>onPause()存在的意义是和onResume()对比现在是否位于前台，并且如果调用新的Activity，onPause执行完毕以后才能调用新的Activity的onResume()，所以不能在onPause()中做重量级操作回收，这一点至关重要。</strong></p>
+<h4 id="在几种情况下的启动"><a href="#在几种情况下的启动" class="headerlink" title="在几种情况下的启动"></a>在几种情况下的启动</h4><ol>
+<li>对于一个特定Activity A<strong>第一次</strong>启动：onCreate-&gt;onStart-&gt;onResume</li>
+</ol>
+<p><strong>打开新的Activity B或者切换到桌面</strong>：onPause-&gt;onStop(透明主题是不会调用onStop)</p>
+<blockquote>
+<p>当 Activity 被另一个透明或者 Dialog 样式的 Activity 覆盖时的状态。此时它依然与窗口管理器保持连接，系统继续维护其内部状态，所以它仍然可见，但它已经失去了焦点故不可与用户交互，所以被覆盖的Activity并不会执行onStop()方法。</p>
+</blockquote>
+<p>返回原来的Activity A的时候：onRestart-&gt;onStart-&gt;onResume</p>
+<ol start="2">
+<li>当按下back键：onPause()-&gt;onStop()-&gt;onDestroy()</li>
+</ol>
+<p>启动的具体过程：首先启动Activity请求由Instrumentation来处理，通过Binder向AMS（ActivityManagerService）发送请求，在AMS内部的ActivityStack栈负责Activity状态同步，再通过ActivityThread去同步Activity状态完成生命周期方法的调用</p>
+<p>启动过程源码分析:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">dontWaitForPause</span> <span class="operator">=</span> (next.info.flags&amp;ActivityInfo.FLAG_RESUME_WHILE_PAUSING) != <span class="number">0</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="variable">pausing</span> <span class="operator">=</span> mStackSupervisor.pauseBackStacks(userLeaving, <span class="literal">true</span>, donWaitForPause);</span><br><span class="line"><span class="keyword">if</span> (mResumedActivity != <span class="literal">null</span>) &#123;</span><br><span class="line"><span class="comment">//     |=：两个二进制对应位都为0时，结果等于0，否则结果等于1；</span></span><br><span class="line">	pausing |= startPausingLocked(userLeaving, <span class="literal">false</span>, <span class="literal">true</span>, donWait-ForPause);</span><br><span class="line">	<span class="keyword">if</span> (DEBUG_STATES) Slog.d(TAG, <span class="string">&quot;resumeTopActivityLocked: Pausing &quot;</span> + mResumeActivity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们都知道Activity的启动时根据栈来启动的，在启动新的Activity之前，栈顶的Activity先回调onPause()方法，新的Activity才会启动。</p>
+<p>那么对于一个个应用来说，打开后在手机应用中后台算一个个的Task，而不算一个个Activity。切屏的时候其实就是在切换一个个的Task，<strong>每一个Task都有一个自己的回退栈，记录了用户打开的每一个Activity</strong>。当用户在调用返回键（back）的时候倒叙的来关闭每一个Activity，当回退栈的最后Activity被关闭了，那么就结束了这个Task，但是这个Task不会在<strong>最近任务列表</strong>里消失，系统会依然保留这个Task的残影给用户，用户点击了以后，其实不是会切回去，而是重新启动这个Activity。</p>
+<p>那么如果在一个Task中的一个ActivityA打开了其他应用的ActivityB呢？例如：在短信APP ActivityA中点击复制号码点击添加联系人，就会打开通讯录APP中添加联系人ActivityB，此时这个ActivityB依然会放在这ActivityA的同一个Task中。<strong>当用户重新返回桌面打开通讯录的时候，不应该显示添加联系人这个ActivityB，而是应该是打开的联系人列表新的Activity。</strong> 注意：我们不应该以<strong>最近任务列表中的显示作为是否在同一个Task的依据，因为这是给用户看的，并不是给开发者看的</strong>。</p>
+<p><strong>总结</strong>：Android一般默认规则是在不同的Task中打开同一个Activity，Activity会被创建多个实例，分别放进每一个Task。如果需要定制不同的逻辑，需要重写，如何重写就牵扯一些启动模式。</p>
+<h4 id="启动模式"><a href="#启动模式" class="headerlink" title="启动模式"></a>启动模式</h4><ol>
+<li>singleTask</li>
+</ol>
+<p>singleTask可以让Activity被别的APP启动的时候，不会进入启动它的Task，而是会在属于它自己的Task去创建 。从名称来看，singleTask意思是一种单实例模式，多次启动Activity都不会重新创建新的实例，如果一开始没有实例就创建一个新的实例就可以。</p>
+<p>设置：<strong>android:launchMode&#x3D;”singleTask”</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:name</span>=<span class="string">&quot;com.someone.email.ComposeMileActivity&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:launchMode</span>=<span class="string">&quot;singleTask&quot;</span></span></span><br><span class="line"><span class="tag">	&lt;<span class="attr">inter-filter</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.VIEW&quot;</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.SENDTO&quot;</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.SEND&quot;</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">&quot;mailto&quot;</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.BROWSABLE&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io">Wen Xin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io/2023/10/05/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">https://wenxiy.github.io/2023/10/05/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/02/05/Java%E7%9A%84GC%E6%9C%BA%E5%88%B6/" title="Java的GC机制"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">Java的GC机制</div></div></a></div><div class="next-post pull-right"><a href="/2023/09/14/%E8%87%AA%E5%AE%9A%E4%B9%89view/" title="自定义View"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">自定义View</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wen Xin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">24</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wenxiy"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8E%E5%90%AF%E5%8A%A8"><span class="toc-number">1.</span> <span class="toc-text">Activity生命周期与启动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E8%A7%88"><span class="toc-number">1.1.</span> <span class="toc-text">概览</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5%E4%B8%8B%E7%9A%84%E5%90%AF%E5%8A%A8"><span class="toc-number">1.2.</span> <span class="toc-text">在几种情况下的启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">启动模式</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/28/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" title="Java内存区域">Java内存区域</a><time datetime="2024-06-27T16:00:00.000Z" title="Created 2024-06-28 00:00:00">2024-06-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/25/HashTable%E7%B1%BB%E5%9E%8B%E9%A2%98%E7%9B%AE/" title="HashTable">HashTable</a><time datetime="2024-06-24T16:00:00.000Z" title="Created 2024-06-25 00:00:00">2024-06-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/05/Java%E7%9A%84GC%E6%9C%BA%E5%88%B6/" title="Java的GC机制">Java的GC机制</a><time datetime="2024-02-04T16:00:00.000Z" title="Created 2024-02-05 00:00:00">2024-02-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/05/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="Java的GC机制">Java的GC机制</a><time datetime="2023-10-04T16:00:00.000Z" title="Created 2023-10-05 00:00:00">2023-10-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/09/14/%E8%87%AA%E5%AE%9A%E4%B9%89view/" title="自定义View">自定义View</a><time datetime="2023-09-13T16:00:00.000Z" title="Created 2023-09-14 00:00:00">2023-09-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Wen Xin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
