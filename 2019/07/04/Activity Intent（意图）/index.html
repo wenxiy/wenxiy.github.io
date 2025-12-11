@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Activity Intent | Android Developer-温鑫</title><meta name="author" content="WenXin"><meta name="copyright" content="WenXin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Activity Intent 什么是Intent 为什么要用Intent 如何使用Intent  什么是Intent？在Android developer中是这样描绘Intent的： Intent 是一个消息传递对象，您可以用来从其他应用组件请求操作。尽管 Intent 可以通过多种方式促进组件之间的通信，但其基本用例主要包括以下三个：  启动 Activity 启动服务（Service） 传递">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activity Intent">
+<meta property="og:url" content="https://wenxiy.github.io/2019/07/04/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/index.html">
+<meta property="og:site_name" content="Android Developer-温鑫">
+<meta property="og:description" content="Activity Intent 什么是Intent 为什么要用Intent 如何使用Intent  什么是Intent？在Android developer中是这样描绘Intent的： Intent 是一个消息传递对象，您可以用来从其他应用组件请求操作。尽管 Intent 可以通过多种方式促进组件之间的通信，但其基本用例主要包括以下三个：  启动 Activity 启动服务（Service） 传递">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wenxiy.github.io/img/avatar.png">
+<meta property="article:published_time" content="2019-07-04T14:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-03T13:07:16.509Z">
+<meta property="article:author" content="WenXin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wenxiy.github.io/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wenxiy.github.io/2019/07/04/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Activity Intent',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-03 21:07:16'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Android Developer-温鑫"><span class="site-name">Android Developer-温鑫</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Activity Intent</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2019-07-04T14:00:00.000Z" title="Created 2019-07-04 22:00:00">2019-07-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-07-03T13:07:16.509Z" title="Updated 2024-07-03 21:07:16">2024-07-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Android/">Android</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Activity Intent"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h3 id="Activity-Intent"><a href="#Activity-Intent" class="headerlink" title="Activity Intent"></a>Activity Intent</h3><ul>
+<li>什么是Intent</li>
+<li>为什么要用Intent</li>
+<li>如何使用Intent</li>
+</ul>
+<h4 id="什么是Intent？"><a href="#什么是Intent？" class="headerlink" title="什么是Intent？"></a>什么是Intent？</h4><p>在Android developer中是这样描绘Intent的：</p>
+<p><code>Intent</code> 是一个消息传递对象，您可以用来从其他应用组件请求操作。尽管 Intent 可以通过多种方式促进组件之间的通信，但其基本用例主要包括以下三个：</p>
+<ul>
+<li><strong>启动 Activity</strong></li>
+<li><strong>启动服务（Service）</strong></li>
+<li><strong>传递广播（BroadCast）</strong></li>
+</ul>
+<p>这里的消息是一种请求操作，当然消息传递不止这一种，而且消息不仅仅指请求。我们有专门的IPC（进程间通信、跨进程通信）机制。</p>
+<p>这里就不深入了，后续会学到。</p>
+<p>那么我们拐回来，再说一下Intent</p>
+<p>Intent是对要执行的操作的抽象描述。它可以与Context、startActivity（Intent）一起使用，以启动安卓应用程序活动</p>
+<p>Intent提供了一种工具，用于在不同应用程序中的代码之间执行后期运行时绑定。它最重要的用途是在启动活动时，它可以被认为是活动之间的粘合剂。它基本上是一个被动的数据结构，包含了对要执行的操作的抽象描述。</p>
+<p>其实我们创建Intent对象的时候，可以查看他的源码，发现了对于Intent其实是实现了两个接口：<strong>Parcelable</strong>和<strong>Cloneable</strong></p>
+<p>第一个接口是实现序列化的接口（将对象转换为可以传输的二进制流(二进制序列)的过程,这样我们就可以通过序列化,转化为可以在网络传输或者保存到本地的流(序列),从而进行传输数据 ）</p>
+<p>第二个是实现克隆，拷贝的接口，以后学习的时候可以看看。</p>
+<p>当然我们只是了解一下这个地方，主要是我们知道他是从序列化然后传输数据来的就可以了。</p>
+<h4 id="为什么要使用Intent？"><a href="#为什么要使用Intent？" class="headerlink" title="为什么要使用Intent？"></a>为什么要使用Intent？</h4><p>这是个好问题，当然是为了通信和传递消息，但是这里没说明白，想要说清楚就要说清楚这个Intent的好处是什么。Intent是一种运行时绑定（runtime binding)机制，它能在程序运行的过程中连接两个不同的组件。通过Intent，程序可以向Android表达某种请求或者意愿，Android会根据意愿的内容选择适当的组件来响应。</p>
+<p>所以这个Google用Intent(意图)来做了一个机制，或者说这个对象。</p>
+<p>当然相应有两种：</p>
+<p>显式和隐式的Intent调用</p>
+<p>我们先不说代码，我们就搞逻辑</p>
+<p>举一个例子：</p>
+<ul>
+<li>我想找一个朋友打羽毛球：对于这句话来说，这就是一个<strong>隐式的Intent</strong> 为什么这么说，”我”是一个ActivityA”朋友”是另外一个未知的ActivityB。要通过”打羽毛球”这个Action去找到这个”朋友”，如果恰好我的朋友小王也想打羽毛球，那么”小王”就是这个具体的ActivityB。</li>
+<li>我想和小王打羽毛球：对于这句话来说这就是一个<strong>显式的Intent</strong>。”我”是ActivityA，”小王”就是ActivityB，此时，你不需要通过Action去匹配</li>
+</ul>
+<p>我们说完了为什么要使用Intent，那么我们说最后一点：如何使用Intent</p>
+<h4 id="如何使用Intent"><a href="#如何使用Intent" class="headerlink" title="如何使用Intent"></a>如何使用Intent</h4><h4 id="显式"><a href="#显式" class="headerlink" title="显式"></a>显式</h4><p>当然，Android权威指南第五章说的很清楚：我们想显式使用一个Intent，那么我们就直接定义一个Intent对象，如果要传数据就调用方法，这个Intent对象只要显式的申明想要去的Activity就可以了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bt.setOnClickListener(<span class="keyword">new</span> <span class="title class_">View</span>.OnClickListener() &#123;</span><br><span class="line">           <span class="meta">@Override</span></span><br><span class="line">           <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View view)</span> &#123;</span><br><span class="line">               <span class="type">Intent</span> <span class="variable">intent1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(MainActivity.<span class="built_in">this</span>,secondActivity.class);</span><br><span class="line">               startActivity(intent1);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>那么如何传数据呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intent.putExtra(<span class="string">&quot;data&quot;</span>,<span class="string">&quot;this is data&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在接受方：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> getIntent();</span><br><span class="line"><span class="type">String</span> <span class="variable">data</span> <span class="operator">=</span> intent.getStringExtra(<span class="string">&quot;data&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我们这里还要说一个方法： startActivityForResult</p>
+<p>我们前面一直说的是startActivity，只要调用了startActivity就能把我第一个Activity的数据传过去</p>
+<p>而startActivityForResult是什么意思呢？</p>
+<p>看名字就是知道，当我的数据传过去了以后，我们要收一个返回值出来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">startActivityForResult(intent,<span class="number">1</span>);<span class="comment">//第二个参数是请求码</span></span><br></pre></td></tr></table></figure>
+
+<p>那返回值在哪？</p>
+<p>其实在第一个Activity中还要重写一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onActivityResult</span><span class="params">(<span class="type">int</span> requestCode, <span class="type">int</span> resultCode, Intent data)</span> &#123;</span><br><span class="line">       <span class="built_in">super</span>.onActivityResult(requestCode, resultCode, data);</span><br><span class="line">       <span class="keyword">switch</span> (requestCode)&#123;</span><br><span class="line">           <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">               <span class="keyword">if</span> (resultCode == <span class="number">4</span>)&#123;</span><br><span class="line">                   Log.i(<span class="string">&quot;info&quot;</span>,data.getStringExtra(<span class="string">&quot;data&quot;</span>));</span><br><span class="line">                   tv.setText(data.getStringExtra(<span class="string">&quot;data&quot;</span>));</span><br><span class="line">               &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么我们来看看第二个Activity</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bt.setOnClickListener(<span class="keyword">new</span> <span class="title class_">View</span>.OnClickListener() &#123;</span><br><span class="line">           <span class="meta">@Override</span></span><br><span class="line">           <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View view)</span> &#123;</span><br><span class="line">               <span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>();</span><br><span class="line">               intent.putExtra(<span class="string">&quot;data&quot;</span>,<span class="string">&quot;second返回的数据&quot;</span>);</span><br><span class="line">               setResult(<span class="number">4</span>,intent);<span class="comment">//返回码与Intent</span></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="隐式"><a href="#隐式" class="headerlink" title="隐式"></a>隐式</h4><p>虽然大家没有学，但是至少要提一下，大家以后可能会用到。如果想要具体的先学会使用，可以看Android developer或者在权威指南的15章</p>
+<p>隐式其实就是不是具体指明我的Activity，而是指明我Activity的某些特性，系统去寻找满足特性的Activity，因此就能传送数据，可以这样想，就是我的Intent是可以发送到多个Activity。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io">WenXin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io/2019/07/04/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/">https://wenxiy.github.io/2019/07/04/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/09/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="计算机网络"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">计算机网络</div></div></a></div><div class="next-post pull-right"><a href="/2019/07/04/%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E6%A2%B0%E7%BA%A7%E8%A1%A8%E7%A4%BA/" title="程序的机械级表示"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">程序的机械级表示</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">WenXin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wenxiy"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity-Intent"><span class="toc-number">1.</span> <span class="toc-text">Activity Intent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFIntent%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">什么是Intent？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Intent%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">为什么要使用Intent？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Intent"><span class="toc-number">1.3.</span> <span class="toc-text">如何使用Intent</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text">显式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F"><span class="toc-number">1.5.</span> <span class="toc-text">隐式</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/10/%E5%8F%98%E9%87%8F%E3%80%81%E5%86%85%E5%AD%98%E3%80%81%E6%AF%94%E7%89%B9%E4%BD%8D%EF%BC%88bit%EF%BC%89%E4%B8%8E%E5%AD%97%E8%8A%82%EF%BC%88byte%EF%BC%89/" title="指针与引用(c++)">指针与引用(c++)</a><time datetime="2025-08-09T16:00:00.000Z" title="Created 2025-08-10 00:00:00">2025-08-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/02/Android%E6%BB%91%E7%9A%84%E5%8A%A8%E7%82%B9%E4%B8%8D%E5%8A%A8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5(Choreographer%E8%AF%A6%E8%A7%A3)/" title="Untitled">Untitled</a><time datetime="2025-08-02T09:25:58.592Z" title="Created 2025-08-02 17:25:58">2025-08-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/27/Android-%E4%B8%AD%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BD%BF%E7%94%A8/" title="Android 中网络协议的使用">Android 中网络协议的使用</a><time datetime="2025-04-27T14:00:00.000Z" title="Created 2025-04-27 22:00:00">2025-04-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/14/Kotlin%20%E7%A9%BA%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6%E4%B8%8E%E5%B8%B8%E7%94%A8%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" title="Kotlin 空安全机制与常用作用域函数总结">Kotlin 空安全机制与常用作用域函数总结</a><time datetime="2025-04-14T14:00:00.000Z" title="Created 2025-04-14 22:00:00">2025-04-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/21/%E5%AE%9A%E4%BD%8D%E5%8A%9F%E8%83%BD%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95/" title="定位功能调试记录（RouteTracker App）">定位功能调试记录（RouteTracker App）</a><time datetime="2025-03-21T14:00:00.000Z" title="Created 2025-03-21 22:00:00">2025-03-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By WenXin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>计算机网络 | Android Developer-温鑫</title><meta name="author" content="WenXin"><meta name="copyright" content="WenXin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="计算机网络基础知识 什么是网络 什么是计算机网络 互联网的组成 计算机网络结构 TCP&#x2F;IP协议  什么是网络网络是由节点和连线构成，表示诸多对象及其相互联系。对于计算机领域来说：网络是代表传输数据之间的联系的一种平台。对于数据结构来说，就是图的表示 ，对于定量分析就是 应用层：提高常见的网络应用应用层利用传输层的服务将数据传输给应用进程，完成进程间的通信。 再根据特定应用再进行数据进一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="https://wenxiy.github.io/2019/09/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Android Developer-温鑫">
+<meta property="og:description" content="计算机网络基础知识 什么是网络 什么是计算机网络 互联网的组成 计算机网络结构 TCP&#x2F;IP协议  什么是网络网络是由节点和连线构成，表示诸多对象及其相互联系。对于计算机领域来说：网络是代表传输数据之间的联系的一种平台。对于数据结构来说，就是图的表示 ，对于定量分析就是 应用层：提高常见的网络应用应用层利用传输层的服务将数据传输给应用进程，完成进程间的通信。 再根据特定应用再进行数据进一">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wenxiy.github.io/img/avatar.png">
+<meta property="article:published_time" content="2019-09-12T14:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T14:27:30.703Z">
+<meta property="article:author" content="WenXin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wenxiy.github.io/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wenxiy.github.io/2019/09/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机网络',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-23 22:27:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Android Developer-温鑫"><span class="site-name">Android Developer-温鑫</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">计算机网络</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2019-09-12T14:00:00.000Z" title="Created 2019-09-12 22:00:00">2019-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-06-23T14:27:30.703Z" title="Updated 2024-06-23 22:27:30">2024-06-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>6mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="计算机网络"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="计算机网络基础知识"><a href="#计算机网络基础知识" class="headerlink" title="计算机网络基础知识"></a>计算机网络基础知识</h2><ul>
+<li>什么是网络</li>
+<li>什么是计算机网络</li>
+<li>互联网的组成</li>
+<li>计算机网络结构</li>
+<li>TCP&#x2F;IP协议</li>
+</ul>
+<h3 id="什么是网络"><a href="#什么是网络" class="headerlink" title="什么是网络"></a>什么是网络</h3><p>网络是由节点和连线构成，表示诸多对象及其相互联系。对于计算机领域来说：网络是代表传输数据之间的联系的一种平台。对于数据结构来说，就是图的表示 ，对于定量分析就是</p>
+<h2 id="应用层：提高常见的网络应用"><a href="#应用层：提高常见的网络应用" class="headerlink" title="应用层：提高常见的网络应用"></a>应用层：提高常见的网络应用</h2><p>应用层利用传输层的服务将数据传输给应用进程，完成进程间的通信。</p>
+<p>再根据特定应用再进行数据进一步去封装。</p>
+<p>定义了应用层的协议：包含以下内容</p>
+<ul>
+<li>报文类型</li>
+<li>各种报文类型的语法</li>
+<li>字段的语义</li>
+<li>进程之间何时、如何发送报文</li>
+</ul>
+<p>应用层协议只是网络应用的一个部分，是网络应用的一个子集</p>
+<p>应用层的具体内容就是规定应用进程在通信时所遵守的协议</p>
+<p>特点：</p>
+<ul>
+<li>应用层协议基于客户服务端模式（前面的概念） p2p也是客户服务端模式的一个变式。</li>
+<li>最高层协议，最活跃的一层。变化最多的一层</li>
+<li>有公开的协议（HTTP）也有不公开的协议（p2p下载的协议）</li>
+</ul>
+<h3 id="应用层协议（基本的协议）"><a href="#应用层协议（基本的协议）" class="headerlink" title="应用层协议（基本的协议）"></a>应用层协议（基本的协议）</h3><ul>
+<li>DNS（域名系统）：实现网络用户到IP地址映射的网络服务</li>
+<li>FTP（文件传输协议）：用于实现交互式文件传输功能</li>
+<li>SMTP（简单邮件传送协议）：用于实现电子邮件传送功能</li>
+<li>HTTP（超文本传输协议）：用于www服务</li>
+<li>SNMP（简单网络管理协议）：用于管理与监视网络设备。</li>
+<li>Telnet（远程登录协议）：用于实现远程登录功能。</li>
+</ul>
+<h3 id="DNS（域名系统（system））"><a href="#DNS（域名系统（system））" class="headerlink" title="DNS（域名系统（system））"></a>DNS（域名系统（system））</h3><ol>
+<li>作用：把提交给系统的域名转换成ip地址</li>
+</ol>
+<p>互联网采用层次结构的命名数作为主机的名字，使用分布式的域名系统，实现域名到IP地址的转换的操作</p>
+<p>将域名转换为ip地址的操作叫DNS解析</p>
+<p>如果使用直接的ip地址有两个缺点：①不好记②计算机是经常更换ip地址，而且不可能告诉你ip地址</p>
+<ol>
+<li><p>概述：域名系统就是起名字，映射到ip地址</p>
+</li>
+<li><p>域名服务器：DNS（server）是进行域名和之对于的ip地址转换的服务器，在这里保存了一张域名和与之对于的ip地址的表，以解析消息的域名。</p>
+</li>
+<li><p>互联网的域名解构：唯一的层次结构为域名，域名的结构由标号序列组成，各标号之间用点隔开：</p>
+<p>三级域名.二级域名.顶级域名（层次树状结构的命名方法）</p>
+</li>
+</ol>
+<h3 id="域名服务器（树状的层次结构）"><a href="#域名服务器（树状的层次结构）" class="headerlink" title="域名服务器（树状的层次结构）"></a>域名服务器（树状的层次结构）</h3><ul>
+<li>一个域名服务器所管辖的范围叫做区</li>
+<li>各单位根据具体情况来划分自己管辖的区，但是一个区中的所有节点是必须能够连通的</li>
+<li>每一个区设置相应的权限域名服务器，用来保存该区中的所有主机的域名到IP地址的映射</li>
+<li>管辖范围不是以“域”作为单位，而是以“区”</li>
+</ul>
+<p>分类：</p>
+<ol>
+<li>根域名服务器</li>
+<li>顶级域名服务器</li>
+<li>权限域名服务器</li>
+<li>本地域名服务器</li>
+</ol>
+<h4 id="根域名服务器：最高层，最重要的域名服务器"><a href="#根域名服务器：最高层，最重要的域名服务器" class="headerlink" title="根域名服务器：最高层，最重要的域名服务器"></a>根域名服务器：最高层，最重要的域名服务器</h4><ul>
+<li>所有的根域名服务器都知道所有的顶级域名服务器的域名和IP地址</li>
+<li>不管哪一个本地域名服务器，若是无法解析，则求助于根域名服务器</li>
+<li>有13个不同的IP地址的根域名服务器，它们的名字是用一个英文字母命名，从a-m（但不是只有13台主机）</li>
+<li>作用：不是直接吧域名转换为ip地址，使用迭代查询，把下一步应当找到的顶级域名服务器的ip地址告诉本地域名服务器</li>
+<li>就近原则</li>
+</ul>
+<h4 id="顶级域名服务器（TLD服务器）"><a href="#顶级域名服务器（TLD服务器）" class="headerlink" title="顶级域名服务器（TLD服务器）"></a>顶级域名服务器（TLD服务器）</h4><ul>
+<li>管理在改顶级域名服务器注册的所有二级域名</li>
+<li>当收到DNS查询的请求的时候，给出相应的回答</li>
+</ul>
+<h4 id="权限域名服务器"><a href="#权限域名服务器" class="headerlink" title="权限域名服务器"></a>权限域名服务器</h4><ul>
+<li>管理一个区的域名服务器</li>
+<li>当一个权限域名服务器不能给出最后的查询回答的时候，就会告诉发出查询请求的DNS客户，下一步应当从哪一个寻找权限域名服务器</li>
+</ul>
+<h4 id="本地域名服务器（在本地网络连接的设置中）"><a href="#本地域名服务器（在本地网络连接的设置中）" class="headerlink" title="本地域名服务器（在本地网络连接的设置中）"></a>本地域名服务器（在本地网络连接的设置中）</h4><ul>
+<li>当一个主机发出DNS查询请求的时候，这个请求报文就会发送给本地域名服务器（如果不成功就交给上一级的域名服务器查询）</li>
+<li>每一个互联网提供者ISP都可以拥有一个本地域名服务器</li>
+<li>也被成为默认服务器</li>
+</ul>
+<p>处于对于安全的考虑，我们会设置一个备用DNS服务器。</p>
+<p>当主域名服务器出现故障的时候，为了保证查询不中断，就可以在辅助域名服务器中查询。</p>
+<p>但是更改域名服务器只能在主域名服务器，主域名服务器定期的将数据复制到辅助域名服务器 保证数据的完整性</p>
+<h3 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h3><ul>
+<li>间接完成 由其他应用服务来间接调用</li>
+</ul>
+<p>主机提出查询请求-&gt;本地域名服务器-&gt;根域名服务器</p>
+<p>主机向本地域名服务器的查询一般是采用的递归查询</p>
+<p>流程图如下：</p>
+<p><img src="https://s1.ax1x.com/2020/06/18/NnlrBn.png" alt="img"></p>
+<p>一共使用了8个UDP报文</p>
+<p>不需要建立连接</p>
+<p>一共执行了3次迭代查询</p>
+<p>少见的递归查询的过程：</p>
+<p><img src="https://s1.ax1x.com/2020/06/18/NnloH1.png" alt="img"></p>
+<h4 id="高速缓存（代理服务器）"><a href="#高速缓存（代理服务器）" class="headerlink" title="高速缓存（代理服务器）"></a>高速缓存（代理服务器）</h4><p>每一个域名服务器都维护一个高速缓存，存放最近使用过的名字以及从何处获取名字映射信息的记录</p>
+<p>大大减轻服务器的负荷</p>
+<p>为了保持高速缓存保持正确，需要去在高速缓存中设置计时器</p>
+<ul>
+<li>将最近一些请求和响应暂存在本地磁盘中。代表服务器发出HTTP协议</li>
+</ul>
+<h3 id="万维网WWW"><a href="#万维网WWW" class="headerlink" title="万维网WWW"></a>万维网WWW</h3><ul>
+<li>概述：应用层的服务，把所有的信息以网状的方式连接到一起，通过超链接的方式展现给我们</li>
+<li>大规模的联机式的信息存储所</li>
+<li>从一个链接跳转到另一个链接（超链接） 万维网独有的服务</li>
+<li>分布式超媒体系统（一个超文本由多个信息源链接，超媒体更加广泛）</li>
+<li>客户-服务端的方式工作</li>
+</ul>
+<p>万维网使用统一资源定位符URL来标志万维网上的各种文档。每一个文档在整个互联网的范围内具有唯一的标识符URL</p>
+<p>（如何定位）</p>
+<p>万维网使用HTTP协议（超文本传送协议，是一个应用层协议）使用TCP进行可靠的传送。</p>
+<p>（如何传输）</p>
+<p>万维网使用超文本标记语言对万维网的页面进行设计</p>
+<p>（如何表示）</p>
+<p>万维网使用搜索引擎来搜索超链接的多媒体形式的内容</p>
+<p>（如何搜索）</p>
+<h4 id="如何定位"><a href="#如何定位" class="headerlink" title="如何定位"></a>如何定位</h4><p>使用URL（统一资源定位符）</p>
+<p>URL：对可以从互联网上得到的资源的位置和访问方法的一种简洁表示</p>
+<p>提供一种抽象的表示方便的找到资源</p>
+<ul>
+<li>形式：协议、主机、端口、路径<ul>
+<li><img src="https://s1.ax1x.com/2020/06/18/NnGKUI.png" alt="img"></li>
+</ul>
+</li>
+</ul>
+<h4 id="如何传输"><a href="#如何传输" class="headerlink" title="如何传输"></a>如何传输</h4><p>HTTP协议：如何实现链接和传输的协议</p>
+<ul>
+<li>面向事物类型：在万维网上可靠的交换文件的基础（各种多媒体文件）</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/06/18/NnJROg.png" alt="img"></p>
+<p>HTTP1.0：无连接，每次先建立TCP的连接，取得文档吼再释放</p>
+<p>HTTP1.1: 在一段时间之内维持TCP连接（持续连接）</p>
+<ul>
+<li>持续连接的两种工作方式：<ul>
+<li>非流水线方式：客户在收到前一个相应后才能发出下一个请求。少了一个TCP连接所需要的RTT时间（与非持续连接的两倍RTT相比）</li>
+<li>流水线方式：客户在收到HTTP的响应报文之前就能够发送新的请求报文。只需要花费一个RTT时间（不断发送请求，统一接受请求）</li>
+</ul>
+</li>
+</ul>
+<h4 id="HTTP的报文结构："><a href="#HTTP的报文结构：" class="headerlink" title="HTTP的报文结构："></a>HTTP的报文结构：</h4><ul>
+<li>请求报文：开始行、首部行、请求主体</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/06/18/NnDzrt.png" alt="img"></p>
+<ul>
+<li>相应报文：</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/06/18/NnyQgJ.png" alt="img"></p>
+<p><img src="https://s1.ax1x.com/2020/06/18/NnyYE6.png" alt="img"></p>
+<p>HTTP是面向正文的协议，在报文中的每一个字段都是ASCII码串 每个字段的长度都是不确定的</p>
+<h4 id="万维网的文档"><a href="#万维网的文档" class="headerlink" title="万维网的文档"></a>万维网的文档</h4><ul>
+<li>静态</li>
+<li>动态</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io">WenXin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io/2019/09/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">https://wenxiy.github.io/2019/09/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/01/19/Kotlin%E5%8D%8F%E7%A8%8B/" title="Kotlin协程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">Kotlin协程</div></div></a></div><div class="next-post pull-right"><a href="/2019/07/04/Activity%20Intent%EF%BC%88%E6%84%8F%E5%9B%BE%EF%BC%89/" title="Activity Intent"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">Activity Intent</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">WenXin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wenxiy"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">计算机网络基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BD%91%E7%BB%9C"><span class="toc-number">1.1.1.</span> <span class="toc-text">什么是网络</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82%EF%BC%9A%E6%8F%90%E9%AB%98%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">应用层：提高常见的网络应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%88%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%8D%8F%E8%AE%AE%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">应用层协议（基本的协议）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%EF%BC%88%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F%EF%BC%88system%EF%BC%89%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">DNS（域名系统（system））</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E6%A0%91%E7%8A%B6%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">域名服务器（树状的层次结构）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B9%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9A%E6%9C%80%E9%AB%98%E5%B1%82%EF%BC%8C%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">根域名服务器：最高层，最重要的域名服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B6%E7%BA%A7%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88TLD%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%89"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">顶级域名服务器（TLD服务器）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">权限域名服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%AE%BE%E7%BD%AE%E4%B8%AD%EF%BC%89"><span class="toc-number">1.2.3.4.</span> <span class="toc-text">本地域名服务器（在本地网络连接的设置中）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.4.</span> <span class="toc-text">DNS解析过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%AD%98%EF%BC%88%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%89"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">高速缓存（代理服务器）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%87%E7%BB%B4%E7%BD%91WWW"><span class="toc-number">1.2.5.</span> <span class="toc-text">万维网WWW</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.2.5.1.</span> <span class="toc-text">如何定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BC%A0%E8%BE%93"><span class="toc-number">1.2.5.2.</span> <span class="toc-text">如何传输</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP%E7%9A%84%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="toc-number">1.2.5.3.</span> <span class="toc-text">HTTP的报文结构：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%87%E7%BB%B4%E7%BD%91%E7%9A%84%E6%96%87%E6%A1%A3"><span class="toc-number">1.2.5.4.</span> <span class="toc-text">万维网的文档</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/10/%E5%8F%98%E9%87%8F%E3%80%81%E5%86%85%E5%AD%98%E3%80%81%E6%AF%94%E7%89%B9%E4%BD%8D%EF%BC%88bit%EF%BC%89%E4%B8%8E%E5%AD%97%E8%8A%82%EF%BC%88byte%EF%BC%89/" title="指针与引用(c++)">指针与引用(c++)</a><time datetime="2025-08-09T16:00:00.000Z" title="Created 2025-08-10 00:00:00">2025-08-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/02/Android%E6%BB%91%E7%9A%84%E5%8A%A8%E7%82%B9%E4%B8%8D%E5%8A%A8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5(Choreographer%E8%AF%A6%E8%A7%A3)/" title="Untitled">Untitled</a><time datetime="2025-08-02T09:25:58.592Z" title="Created 2025-08-02 17:25:58">2025-08-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/27/Android-%E4%B8%AD%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BD%BF%E7%94%A8/" title="Android 中网络协议的使用">Android 中网络协议的使用</a><time datetime="2025-04-27T14:00:00.000Z" title="Created 2025-04-27 22:00:00">2025-04-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/14/Kotlin%20%E7%A9%BA%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6%E4%B8%8E%E5%B8%B8%E7%94%A8%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" title="Kotlin 空安全机制与常用作用域函数总结">Kotlin 空安全机制与常用作用域函数总结</a><time datetime="2025-04-14T14:00:00.000Z" title="Created 2025-04-14 22:00:00">2025-04-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/21/%E5%AE%9A%E4%BD%8D%E5%8A%9F%E8%83%BD%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95/" title="定位功能调试记录（RouteTracker App）">定位功能调试记录（RouteTracker App）</a><time datetime="2025-03-21T14:00:00.000Z" title="Created 2025-03-21 22:00:00">2025-03-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By WenXin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

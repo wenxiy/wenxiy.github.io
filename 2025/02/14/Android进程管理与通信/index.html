@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Android 进程间通信与管理 | Android Developer-温鑫</title><meta name="author" content="WenXin"><meta name="copyright" content="WenXin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Android 进程间通信与管理IPC（inter-process communication）进程间通信是在不同的进程之间进行相互传递数据。 提到了进程，就不得不提一下线程与协程。 进程进程是指正在运行中的程序抽象，是系统进行资源分配和调度的基本单元，执行进程任务的是CPU,对于Android系统来说，Android系统会在应用组件启动并且应用没有其他组件运行的时候，启动一个新的Linux进程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 进程间通信与管理">
+<meta property="og:url" content="https://wenxiy.github.io/2025/02/14/Android%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E4%B8%8E%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="Android Developer-温鑫">
+<meta property="og:description" content="Android 进程间通信与管理IPC（inter-process communication）进程间通信是在不同的进程之间进行相互传递数据。 提到了进程，就不得不提一下线程与协程。 进程进程是指正在运行中的程序抽象，是系统进行资源分配和调度的基本单元，执行进程任务的是CPU,对于Android系统来说，Android系统会在应用组件启动并且应用没有其他组件运行的时候，启动一个新的Linux进程。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://wenxiy.github.io/img/avatar.png">
+<meta property="article:published_time" content="2025-02-14T14:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-21T05:31:30.806Z">
+<meta property="article:author" content="WenXin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wenxiy.github.io/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wenxiy.github.io/2025/02/14/Android%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E4%B8%8E%E9%80%9A%E4%BF%A1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Android 进程间通信与管理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-04-21 13:31:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Android Developer-温鑫"><span class="site-name">Android Developer-温鑫</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Android 进程间通信与管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-14T14:00:00.000Z" title="Created 2025-02-14 22:00:00">2025-02-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-04-21T05:31:30.806Z" title="Updated 2025-04-21 13:31:30">2025-04-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Android 进程间通信与管理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="Android-进程间通信与管理"><a href="#Android-进程间通信与管理" class="headerlink" title="Android 进程间通信与管理"></a>Android 进程间通信与管理</h2><p>IPC（inter-process communication）进程间通信是在不同的进程之间进行相互传递数据。</p>
+<p>提到了进程，就不得不提一下线程与协程。</p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程是指正在运行中的程序抽象，是系统进行资源分配和调度的基本单元，执行进程任务的是CPU,对于Android系统来说，Android系统会在应用组件启动并且应用没有其他组件运行的时候，启动一个新的Linux进程。</p>
+<p>主要是由三部分构成：</p>
+<ul>
+<li>执行指令集（描述要完成的功能）</li>
+<li>所需要的数据集合</li>
+<li>程序控制块（进程的描述信息与控制信息，是存在的唯一标志）</li>
+</ul>
+<p><strong>通俗易懂：“进程”是程序被操作系统加载到内存中运行起来后的样子</strong></p>
+<p>进程之间是相互独立的，一个进程崩了不会影响另一个进程，除非共享资源（IPC）</p>
+<p>在Android 系统中，一个进程≈一个APP，也就是大多数应用也就一个进程。</p>
+<p>一般来说，服务(Service)、 WebView（用来在 App 里嵌入网页）就会单开一个进程，防止阻塞主进程</p>
+<p>那在Android系统中谁管理进程呢？ <strong>AMS</strong> </p>
+<h3 id="AMS"><a href="#AMS" class="headerlink" title="AMS"></a>AMS</h3><h4 id="”溥天之下，-莫非王土“"><a href="#”溥天之下，-莫非王土“" class="headerlink" title="”溥天之下， 莫非王土“"></a><strong>”溥天之下， 莫非王土“</strong></h4><p>AMS作为Android系统的核心组件之一，扮演着重要的角色。它负责管理应用程序的生命周期，包括应用的启动、切换、销毁等操作。同时，AMS还负责进程调度，根据系统资源的使用情况来决定应用程序的优先级，以提高系统的整体性能。此外，AMS还负责任务栈的管理，用于管理应用程序的界面显示和切换。</p>
+<h4 id="AMS-具体职责"><a href="#AMS-具体职责" class="headerlink" title="AMS 具体职责"></a>AMS 具体职责</h4><p>AMS具体负责的有：</p>
+<ul>
+<li>启动 Activity: 你点击一个 App 图标 → AMS 帮你打开对应界面</li>
+<li>管理进程: 系统决定是否启动&#x2F;保留&#x2F;杀死某个 App 的进程</li>
+<li>生命周期管理:例如 <code>onPause</code>、<code>onResume</code>、<code>onStop</code> 都是 AMS 控制的</li>
+<li>管理任务栈:每个 App 的 Activity 是如何压入&#x2F;弹出的</li>
+<li>管理服务(Service) :启动&#x2F;绑定服务</li>
+</ul>
+<h4 id="AMS-本质：system-server中的一个Java-服务类"><a href="#AMS-本质：system-server中的一个Java-服务类" class="headerlink" title="AMS 本质：system_server中的一个Java 服务类"></a>AMS 本质：system_server中的一个Java 服务类</h4><p>是通过 <strong>Binder 机制</strong> 和 App 进行通信的，平时在 App 中调用 <code>startActivity()</code> 等，其实底层就是通过 Binder 跳到了 AMS。</p>
+<p>相当于</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">  A[App process] --&gt;|startActivity| B(Binder call)</span><br><span class="line">  B --&gt; C[system_server process]</span><br><span class="line">  C --&gt; D[AMS: ActivityManagerService]</span><br><span class="line">  D --&gt; E&#123;Target process exists?&#125;</span><br><span class="line">  E -- No --&gt; F[Zygote forks new process]</span><br><span class="line">  E -- Yes --&gt; G[Send message to target App]</span><br><span class="line">  F --&gt; G</span><br><span class="line">  G --&gt; H[ActivityThread: scheduleLaunchActivity]</span><br><span class="line">  H --&gt; I[Launch target Activity onCreate]</span><br></pre></td></tr></table></figure>
+
+<p>这是一个大概的启动Activity的图，具体还有很多，这些都牵扯到Framework层次</p>
+<h4 id="AMS的底层实现"><a href="#AMS的底层实现" class="headerlink" title="AMS的底层实现"></a>AMS的底层实现</h4><p>从Java角度来说，AMS是一个JAVA单例类实现了IBinder接口（间接）</p>
+<p>➡️ <strong>AMS 继承了 <code>IActivityManager.Stub</code></strong><br>➡️ <code>Stub</code> 又继承了 <code>Binder</code>，而 <code>Binder</code> 实现了 <code>IBinder</code> 接口</p>
+<p>当在App中调用的时候</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActivityManager.getService().startActivity(...)</span><br></pre></td></tr></table></figure>
+
+<p>拿到的并不是 AMS 本体，而是它的 <strong>Binder Proxy（代理）对象</strong>，由 <code>IActivityManager.Stub.asInterface(binder)</code> 生成。这个 proxy 实际负责跨进程通信，把你的请求传给 system_server 中真正的 AMS 来处理</p>
+<h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h4><p><strong>线程</strong>（thread）是操作系统能够进行<strong>运算调度</strong>的最小单位，其是进程中的一个执行任务（控制单元），负责当前进程中程序的执行</p>
+<p>每个进程启动后，至少会有一个线程运行 —— <strong>主线程（Main Thread）</strong>，它就是执行你代码的起点。</p>
+<p>但实际上，并不是线程越多，进程的工作效率越高，这是因为在一个进程内，不管你创建了多少线程，它们总是被限定在一颗<code>CPU</code>内，或者多核<code>CPU</code>的一个核内</p>
+<p>这意味着，多线程在宏观上是并行的，在微观上则是分时切换串行的，多线程编程无法充分发挥多核计算资源的优势</p>
+<p>这导致使用多线程做任务并行处理时，线程数量超过一定数值后，线程越多速度反倒越慢的原因。</p>
+<h4 id="二者区别："><a href="#二者区别：" class="headerlink" title="二者区别："></a>二者区别：</h4><ul>
+<li><strong>本质区别</strong>：进程是操作系统资源分配的基本单位，而线程是任务调度和执行的基本单位</li>
+<li><strong>在开销方面</strong>：每个进程都有独立的代码和数据空间（程序上下文），程序之间的切换会有较大的开销；线程可以看做轻量级的进程，同一类线程共享代码和数据空间，每个线程都有自己独立的运行栈和程序计数器（PC），线程之间切换的开销小</li>
+<li><strong>所处环境</strong>：在操作系统中能同时运行多个进程（程序）；而在同一个进程（程序）中有多个线程同时执行（通过CPU调度，在每个时间片中只有一个线程执行）</li>
+<li><strong>内存分配方面</strong>：系统在运行的时候会为每个进程分配不同的内存空间；而对线程而言，除了CPU外，系统不会为线程分配内存（线程所使用的资源来自其所属进程的资源），线程组之间只能共享资源</li>
+<li><strong>包含关系</strong>：没有线程的进程可以看做是单线程的，如果一个进程内有多个线程，则执行过程不是一条线的，而是多条线（线程）共同完成的；线程是进程的一部分，所以线程也被称为轻权进程或者轻量级进程</li>
+</ul>
+<h4 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h4><p><strong>协程是比线程更轻量的异步任务单位，能在一个线程内挂起&#x2F;恢复执行，不需要开启新线程，也能实现并发。</strong></p>
+<p>你可以把协程理解为：</p>
+<p>“一个可以 <strong>暂停</strong> 和 <strong>恢复</strong> 的小任务，它不像线程那样占资源，却可以做出线程那样的异步效果。”</p>
+<p>和他有点像的是Handler(异步处理的工具）</p>
+<h4 id="IPC："><a href="#IPC：" class="headerlink" title="IPC："></a>IPC：</h4><p>跨进程通信：Android 的系统服务（如 AMS）都运行在一个叫 <code>system_server</code> 的大进程里，而你的 App 是另一个进程。 所以要想让 App 跟 AMS 通信，必须通过 <strong>Binder 跨进程通信机制</strong> </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io">WenXin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://wenxiy.github.io/2025/02/14/Android%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E4%B8%8E%E9%80%9A%E4%BF%A1/">https://wenxiy.github.io/2025/02/14/Android%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E4%B8%8E%E9%80%9A%E4%BF%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/03/21/%E5%AE%9A%E4%BD%8D%E5%8A%9F%E8%83%BD%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95/" title="定位功能调试记录（RouteTracker App）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">定位功能调试记录（RouteTracker App）</div></div></a></div><div class="next-post pull-right"><a href="/2025/01/25/linux%E5%86%85%E6%A0%B8%E6%80%81%E4%B8%8E%E7%94%A8%E6%88%B7%E6%80%81/" title="Linux内核态与用户态"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next</div><div class="next_info">Linux内核态与用户态</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">WenXin</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wenxiy"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">Android 进程间通信与管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AMS"><span class="toc-number">1.2.</span> <span class="toc-text">AMS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9D%E6%BA%A5%E5%A4%A9%E4%B9%8B%E4%B8%8B%EF%BC%8C-%E8%8E%AB%E9%9D%9E%E7%8E%8B%E5%9C%9F%E2%80%9C"><span class="toc-number">1.2.1.</span> <span class="toc-text">”溥天之下， 莫非王土“</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AMS-%E5%85%B7%E4%BD%93%E8%81%8C%E8%B4%A3"><span class="toc-number">1.2.2.</span> <span class="toc-text">AMS 具体职责</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AMS-%E6%9C%AC%E8%B4%A8%EF%BC%9Asystem-server%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AAJava-%E6%9C%8D%E5%8A%A1%E7%B1%BB"><span class="toc-number">1.2.3.</span> <span class="toc-text">AMS 本质：system_server中的一个Java 服务类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AMS%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.4.</span> <span class="toc-text">AMS的底层实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.2.5.</span> <span class="toc-text">线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E8%80%85%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="toc-number">1.2.6.</span> <span class="toc-text">二者区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8F%E7%A8%8B"><span class="toc-number">1.2.7.</span> <span class="toc-text">协程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IPC%EF%BC%9A"><span class="toc-number">1.2.8.</span> <span class="toc-text">IPC：</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/10/%E5%8F%98%E9%87%8F%E3%80%81%E5%86%85%E5%AD%98%E3%80%81%E6%AF%94%E7%89%B9%E4%BD%8D%EF%BC%88bit%EF%BC%89%E4%B8%8E%E5%AD%97%E8%8A%82%EF%BC%88byte%EF%BC%89/" title="指针与引用(c++)">指针与引用(c++)</a><time datetime="2025-08-09T16:00:00.000Z" title="Created 2025-08-10 00:00:00">2025-08-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/02/Android%E6%BB%91%E7%9A%84%E5%8A%A8%E7%82%B9%E4%B8%8D%E5%8A%A8%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5(Choreographer%E8%AF%A6%E8%A7%A3)/" title="Untitled">Untitled</a><time datetime="2025-08-02T09:25:58.592Z" title="Created 2025-08-02 17:25:58">2025-08-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/27/Android-%E4%B8%AD%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BD%BF%E7%94%A8/" title="Android 中网络协议的使用">Android 中网络协议的使用</a><time datetime="2025-04-27T14:00:00.000Z" title="Created 2025-04-27 22:00:00">2025-04-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/14/Kotlin%20%E7%A9%BA%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6%E4%B8%8E%E5%B8%B8%E7%94%A8%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" title="Kotlin 空安全机制与常用作用域函数总结">Kotlin 空安全机制与常用作用域函数总结</a><time datetime="2025-04-14T14:00:00.000Z" title="Created 2025-04-14 22:00:00">2025-04-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/21/%E5%AE%9A%E4%BD%8D%E5%8A%9F%E8%83%BD%E8%B0%83%E8%AF%95%E8%AE%B0%E5%BD%95/" title="定位功能调试记录（RouteTracker App）">定位功能调试记录（RouteTracker App）</a><time datetime="2025-03-21T14:00:00.000Z" title="Created 2025-03-21 22:00:00">2025-03-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By WenXin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
